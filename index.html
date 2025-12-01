@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Soulfood 🍲</title>
+    <title>Soulfood Royal ⚜️</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
     <script type="importmap">
       {
         "imports": {
-          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          "@google/generative-ai": "https://esm.run/@google/generative-ai@latest"
         }
       }
     </script>
+    
     <style>
         :root {
-            /* ROYAL PALETTE */
-            --bg-royal: #0c2461;    /* Tiefes Königsblau */
-            --bg-card: #192a56;     /* Etwas helleres Blau für die Karte */
-            --text-platinum: #E5E4E2; /* Platin (Helles Grau-Weiß) */
-            --gold: #D4AF37;        /* Mattes Gold */
-            --gold-shine: #FDCB6E;  /* Helles Gold für Highlights */
+            /* LUXUS PALETTE */
+            --bg-royal: #0c2461;      
+            --bg-overlay: rgba(12, 36, 97, 0.94); 
+            --text-platinum: #E5E4E2; 
+            --gold: #D4AF37;          
+            --gold-light: #FDCB6E;    
             --radius: 16px;
         }
 
@@ -39,62 +42,74 @@
             align-items: flex-start;
             min-height: 100vh;
             
-            /* MINIGRAM MUSTER (CSS Generated) */
-            /* Erzeugt ein feines Punkt-Muster, das wie ein edler Stoff wirkt */
+            /* MINIGRAM MUSTER */
             background-image: 
-                radial-gradient(var(--gold) 1px, transparent 1px),
-                radial-gradient(var(--gold) 1px, transparent 1px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            /* Überlagerung damit es dunkel und edel bleibt, nicht zu unruhig */
-            box-shadow: inset 0 0 0 1000px rgba(12, 36, 97, 0.9); 
+                radial-gradient(var(--gold) 1.5px, transparent 1.5px),
+                radial-gradient(var(--gold) 1.5px, transparent 1.5px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            box-shadow: inset 0 0 0 2000px var(--bg-overlay);
         }
 
         .container {
-            background: rgba(25, 42, 86, 0.95); /* Fast undurchsichtig */
+            background: rgba(20, 30, 60, 0.85);
             padding: 1.5rem;
             border-radius: var(--radius);
-            /* Edler doppelter Goldrand */
             border: 3px double var(--gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
             width: 100%;
             max-width: 500px;
             margin-top: 10px;
             margin-bottom: 40px;
-            backdrop-filter: blur(10px); /* Glas-Effekt falls supported */
+            backdrop-filter: blur(8px);
+            position: relative;
         }
+
+        /* Dekorative Ecken */
+        .container::before, .container::after {
+            content: "⚜️";
+            position: absolute;
+            font-size: 1.2rem;
+            color: var(--gold);
+            opacity: 0.8;
+        }
+        .container::before { top: 10px; left: 10px; }
+        .container::after { top: 10px; right: 10px; }
 
         h1 { 
             color: var(--gold); 
             text-align: center; 
-            margin: 0 0 5px 0;
+            margin: 10px 0 5px 0;
             font-family: 'Playfair Display', serif; 
-            font-size: clamp(2rem, 6vw, 2.5rem);
-            line-height: 1.2;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: clamp(2.2rem, 8vw, 2.8rem);
+            line-height: 1.1;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.4);
             letter-spacing: 1px;
         }
         
         .subtitle { 
             text-align: center; 
             color: var(--text-platinum); 
-            opacity: 0.7;
-            margin-bottom: 25px; 
+            opacity: 0.8;
+            margin-bottom: 30px; 
             font-weight: 300; 
-            letter-spacing: 2px; 
+            letter-spacing: 3px; 
             text-transform: uppercase;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            display: inline-block;
+            padding-bottom: 5px;
+            width: 100%;
         }
 
         h2 { 
             font-family: 'Playfair Display', serif;
             color: var(--gold); 
-            font-size: 1.3rem; 
+            font-size: 1.4rem; 
             margin-top: 0; 
             margin-bottom: 15px;
             line-height: 1.4;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            padding-bottom: 5px;
+            text-align: center;
         }
         
         p { line-height: 1.6; font-weight: 300; }
@@ -102,141 +117,133 @@
         .btn {
             width: 100%;
             padding: 18px;
-            margin-top: 20px;
+            margin-top: 25px;
             border: none;
             border-radius: 12px;
-            /* Gold Verlauf */
-            background: linear-gradient(135deg, var(--gold), #b38f2d);
-            color: var(--bg-royal); /* Dunkler Text auf Gold für Lesbarkeit */
+            background: linear-gradient(135deg, var(--gold), #8e7318);
+            color: #05102a;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 700;
             font-family: 'Playfair Display', serif;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             cursor: pointer;
             transition: transform 0.1s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             user-select: none; 
         }
         .btn:active { transform: scale(0.97); }
 
-        .step { display: none; animation: fadeIn 0.5s ease-out; }
+        .step { display: none; animation: fadeIn 0.6s ease-out; }
         .step.active { display: block; }
 
         .options-grid { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 10px; 
-            margin-top: 10px; 
+            gap: 12px; 
+            margin-top: 15px; 
         }
         
         .option-card {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 12px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 10px;
             border-radius: 10px;
             text-align: center;
             cursor: pointer;
-            border: 1px solid rgba(212, 175, 55, 0.3); /* Dezent Gold */
+            border: 1px solid rgba(212, 175, 55, 0.2); 
             font-weight: 400;
             color: var(--text-platinum);
             font-size: 0.9rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 50px; 
+            min-height: 60px; 
             transition: all 0.2s;
         }
         .option-card.selected {
             border-color: var(--gold);
-            background-color: rgba(212, 175, 55, 0.2); /* Transparentes Gold */
+            background-color: rgba(212, 175, 55, 0.15); 
             color: var(--gold);
             font-weight: bold;
-            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
         }
 
         label {
             color: var(--gold);
             font-family: 'Playfair Display', serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: block;
-            margin-top: 25px;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         input, textarea {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             border: 1px solid rgba(212, 175, 55, 0.4);
             border-radius: 10px;
             font-size: 16px; 
-            font-family: inherit;
-            background: rgba(0, 0, 0, 0.2);
+            font-family: 'Lato', sans-serif;
+            background: rgba(0, 0, 0, 0.3);
             color: var(--text-platinum);
             -webkit-appearance: none;
+            text-align: center;
         }
-        input:focus { outline: none; border-color: var(--gold); background: rgba(0, 0, 0, 0.4); }
+        input:focus { outline: none; border-color: var(--gold); background: rgba(0, 0, 0, 0.5); }
         input::placeholder { color: rgba(229, 228, 226, 0.3); }
 
-        /* Ergebnis Bild */
         .result-img {
             width: 100%;
             height: auto;
             aspect-ratio: 4/3; 
             object-fit: cover;
             border-radius: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             background-color: #0c2461;
             border: 2px solid var(--gold);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         
         .recipe-box {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            padding: 15px;
-            margin: 15px 0;
+            padding: 20px;
+            margin: 20px 0;
             text-align: left;
-            line-height: 1.5;
+            line-height: 1.6;
             color: var(--text-platinum);
             border-left: 3px solid var(--gold);
             font-size: 0.95rem;
         }
 
         .drink-suggestion {
-            background: linear-gradient(to right, rgba(212, 175, 55, 0.1), transparent);
-            padding: 12px;
+            background: linear-gradient(to right, rgba(212, 175, 55, 0.15), transparent);
+            padding: 15px;
             border-radius: 12px;
-            margin-top: 15px;
+            margin-top: 20px;
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            gap: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .loader {
             border: 3px solid rgba(212, 175, 55, 0.2);
             border-top: 3px solid var(--gold);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
             margin: 30px auto;
         }
         
         .reset-link {
-            display: block; text-align: center; margin-top: 20px; color: rgba(255,255,255,0.3); font-size: 0.75rem; padding: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            display: block; text-align: center; margin-top: 25px; color: rgba(255,255,255,0.3); font-size: 0.75rem; padding: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
         }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Extra Anpassungen für sehr kleine Bildschirme */
-        @media (max-width: 360px) {
-            h1 { font-size: 2rem; }
-            .container { padding: 1.2rem; }
-            .option-card { font-size: 0.8rem; }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -245,17 +252,16 @@
     
     <div id="step-setup" class="step active">
         <h1>Soulfood</h1>
-        <div class="subtitle">Exklusiver Genuss, kuratiert von KI</div>
+        <div class="subtitle">Royal Edition</div>
         
-        <p style="text-align:center; font-size: 0.95rem;">
-            Willkommen an der Tafel.<br>
+        <p style="text-align:center; font-size: 1rem; margin-top: 30px;">
+            Willkommen.<br>
             Bitte authentifizieren Sie sich für den Zugang.
         </p>
         
-        <div style="background: rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 10px; font-size: 0.85rem; margin-top:20px; border: 1px solid var(--gold); color: var(--gold);">
+        <div style="background: rgba(212, 175, 55, 0.05); padding: 15px; border-radius: 10px; font-size: 0.85rem; margin-top:20px; border: 1px solid var(--gold); color: var(--gold); text-align: center;">
             <strong>Systemzugang:</strong><br>
-            Ein API Key wird benötigt.
-            <br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--text-platinum); text-decoration:none; font-weight:bold; display:block; margin-top:5px; border-bottom: 1px dotted var(--text-platinum); width: fit-content;">→ Key hier anfordern</a>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--text-platinum); text-decoration:none; font-weight:bold; display:block; margin-top:5px; border-bottom: 1px dotted var(--text-platinum); width: fit-content; margin: 5px auto;">→ API Key hier holen</a>
         </div>
         <br>
         <input type="password" id="apiKey" placeholder="Key eingeben (AIza...)">
@@ -263,55 +269,55 @@
     </div>
 
     <div id="step-category" class="step">
-        <h2>Wonach steht der Sinn?</h2>
+        <h2>Ihre Wahl?</h2>
         <div class="options-grid" id="catGrid"></div>
-        <button class="btn" onclick="nextStep('step-people')">Weiter zur Auswahl</button>
-        <div class="reset-link" onclick="resetKey()">Zugangsschlüssel ändern</div>
+        <button class="btn" onclick="nextStep('step-people')">Bestätigen</button>
+        <div class="reset-link" onclick="resetKey()">Schlüssel ändern</div>
     </div>
 
     <div id="step-people" class="step">
-        <h2>Die Gesellschaft</h2>
+        <h2>Details</h2>
         <label>Anzahl der Gäste</label>
         <input type="number" id="peopleCount" value="2" min="1" inputmode="numeric" pattern="[0-9]*">
         
         <label>Präferenz</label>
         <div class="options-grid">
-            <div class="option-card selected" onclick="selectDiet(this, 'Alles')">Keine Einschränkung</div>
+            <div class="option-card selected" onclick="selectDiet(this, 'Alles')">Alles</div>
             <div class="option-card" onclick="selectDiet(this, 'Vegetarisch')">Vegetarisch</div>
             <div class="option-card" onclick="selectDiet(this, 'Vegan')">Vegan</div>
-            <div class="option-card" onclick="selectDiet(this, 'Pescetarisch')">Pescetarisch</div>
+            <div class="option-card" onclick="selectDiet(this, 'Pescetarisch')">Fisch</div>
         </div>
 
-        <label>Begleitung (Getränke)</label>
+        <label>Getränke</label>
         <div class="options-grid">
             <div class="option-card selected" onclick="selectDrink(this, 'non-alcoholic')">Alkoholfrei</div>
             <div class="option-card" onclick="selectDrink(this, 'alcoholic')">Mit Alkohol</div>
         </div>
 
-        <label>Besondere Wünsche</label>
-        <input type="text" id="allergies" placeholder="Allergien oder Notizen">
+        <label>Sonstiges</label>
+        <input type="text" id="allergies" placeholder="Allergien / Wünsche">
         
-        <button class="btn" onclick="generateFood()">Inspiration erbitten</button>
+        <button class="btn" onclick="generateFood()">Kuratieren</button>
     </div>
 
     <div id="step-loading" class="step" style="text-align: center;">
-        <h2 style="color:var(--gold); border:none; margin-top:20px;">Kuratierung läuft...</h2>
+        <h2 style="color:var(--gold); border:none; margin-top:40px;">Einen Moment...</h2>
         <div class="loader"></div>
-        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Die besten Zutaten werden gewählt.</p>
+        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Die besten Optionen werden geprüft.</p>
     </div>
 
     <div id="step-result" class="step">
-        <h2 id="resTitle" style="font-family: 'Playfair Display', serif; font-size:2rem; margin-bottom:10px; color: var(--gold); border:none; text-align: center;">Gericht</h2>
+        <h2 id="resTitle" style="font-family: 'Playfair Display', serif; font-size:2rem; margin-bottom:15px; color: var(--gold); border:none; text-align: center;">Gericht</h2>
         
         <img id="resImg" class="result-img" src="" alt="Exquisites Essen">
         
-        <p id="resDesc" style="text-align: center; color: var(--text-platinum); font-style: italic; font-size: 1rem; margin-bottom: 20px;"></p>
+        <p id="resDesc" style="text-align: center; color: var(--text-platinum); font-style: italic; font-size: 1rem; margin-bottom: 25px;"></p>
 
         <div class="drink-suggestion">
-            <span style="font-size: 1.8rem;">🥂</span>
+            <span style="font-size: 2rem;">🥂</span>
             <div>
                 <strong id="drinkName" style="color:var(--gold); font-size:0.9rem; text-transform: uppercase;">Empfehlung</strong>
-                <div id="drinkReason" style="font-size: 0.85rem; color: var(--text-platinum); opacity: 0.8; margin-top:2px;"></div>
+                <div id="drinkReason" style="font-size: 0.9rem; color: var(--text-platinum); opacity: 0.9; margin-top:4px;"></div>
             </div>
         </div>
 
@@ -320,7 +326,7 @@
             <p id="resRecipe" style="white-space: pre-line; margin-bottom:0;"></p>
         </div>
 
-        <button class="btn" style="background: transparent; border: 2px solid var(--gold); color: var(--gold);" onclick="location.reload()">Neue Auswahl</button>
+        <button class="btn" style="background: transparent; border: 2px solid var(--gold); color: var(--gold);" onclick="location.reload()">Neue Inspiration</button>
     </div>
 
 </div>
@@ -328,7 +334,8 @@
 <script type="module">
     import { GoogleGenerativeAI } from "@google/generative-ai";
 
-    const STORAGE_KEY = "soulfood_royal_mobile_key";
+    // Eindeutiger Speicher-Key
+    const STORAGE_KEY = "soulfood_royal_fix_final_v3";
     let apiKey = localStorage.getItem(STORAGE_KEY);
     
     let userSelections = {
@@ -339,7 +346,6 @@
         allergies: ""
     };
 
-    // Kategorien
     const categories = [
         "Frühstück", "Brunch", "Mittagessen", 
         "Abendessen", "Snacks", "Dessert", "Suppen", "Nur Drinks"
@@ -406,6 +412,33 @@
         userSelections.drinkPref = val;
     };
 
+    // --- SMART GENERATE FUNKTION ---
+    // Diese Funktion probiert nacheinander die neuesten Modelle, falls eines ausfällt.
+    async function tryGenerate(prompt) {
+        const genAI = new GoogleGenerativeAI(apiKey);
+        
+        // Liste der Modelle, die wir probieren (Das Neueste zuerst)
+        // gemini-1.5-flash ist der aktuelle Standard für die Free Tier
+        const modelsToTry = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.0-pro"];
+        
+        let lastError = null;
+
+        for (const modelName of modelsToTry) {
+            try {
+                console.log("Versuche Verbindung mit Modell:", modelName);
+                const model = genAI.getGenerativeModel({ model: modelName });
+                const result = await model.generateContent(prompt);
+                const response = await result.response;
+                return response.text(); // Hat geklappt!
+            } catch (error) {
+                console.warn(`Fehler mit ${modelName}:`, error.message);
+                lastError = error;
+                // Schleife läuft weiter zum nächsten Modell
+            }
+        }
+        throw lastError; // Alle Modelle fehlgeschlagen
+    }
+
     window.generateFood = async () => {
         userSelections.people = parseInt(document.getElementById('peopleCount').value);
         userSelections.allergies = document.getElementById('allergies').value;
@@ -413,9 +446,6 @@
         window.nextStep('step-loading');
         
         try {
-            const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
             const prompt = `
                 Du bist ein Experte für Soulfood und Comfort Food.
                 Schlage EIN Gericht vor, das glücklich macht, aber beschreibe es elegant und appetitlich.
@@ -433,10 +463,11 @@
                 }
             `;
 
-            const result = await model.generateContent(prompt);
-            const response = await result.response;
-            const text = response.text().replace(/```json/g, '').replace(/```/g, ''); 
-            const data = JSON.parse(text);
+            // Nutze die intelligente Funktion
+            const textRaw = await tryGenerate(prompt);
+            
+            const textClean = textRaw.replace(/```json/g, '').replace(/```/g, ''); 
+            const data = JSON.parse(textClean);
 
             const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(data.imageSearchTerm + " elegant gourmet food photography dark rich colors cinematic lighting 8k michelin plating")}`;
 
@@ -450,8 +481,8 @@
             window.nextStep('step-result');
 
         } catch (error) {
-            console.error(error);
-            alert("Es gab einen Fehler. Bitte prüfen Sie den API Key.");
+            console.error("Alle Versuche fehlgeschlagen:", error);
+            alert("Wir konnten den Hofkoch nicht erreichen (API Fehler). Bitte erstelle einen NEUEN API Key auf Google AI Studio, da sich die Berechtigungen geändert haben könnten.");
             window.nextStep('step-setup');
         }
     };
