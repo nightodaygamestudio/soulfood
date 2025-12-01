@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Soulfood 🍲</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     <script type="importmap">
       {
         "imports": {
@@ -13,182 +14,209 @@
     </script>
     <style>
         :root {
-            --primary: #e17055;
-            --secondary: #d63031;
-            --bg: #fff0e6;
-            --card: #FFFFFF;
-            --text: #2d3436;
-            --accent: #fab1a0;
-            --radius: 20px;
+            /* ROYAL PALETTE */
+            --bg-royal: #0c2461;    /* Tiefes Königsblau */
+            --bg-card: #192a56;     /* Etwas helleres Blau für die Karte */
+            --text-platinum: #E5E4E2; /* Platin (Helles Grau-Weiß) */
+            --gold: #D4AF37;        /* Mattes Gold */
+            --gold-shine: #FDCB6E;  /* Helles Gold für Highlights */
+            --radius: 16px;
         }
 
         * {
-            box-sizing: border-box; /* Wichtig für Mobile Padding */
-            -webkit-tap-highlight-color: transparent; /* Entfernt grauen Schleier beim Tippen auf Mobile */
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-royal);
+            color: var(--text-platinum);
             margin: 0;
-            padding: 15px; /* Kleinerer Rand am Bildschirmrand */
+            padding: 15px;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Erlaubt scrollen bei langen Inhalten */
+            align-items: flex-start;
             min-height: 100vh;
+            
+            /* MINIGRAM MUSTER (CSS Generated) */
+            /* Erzeugt ein feines Punkt-Muster, das wie ein edler Stoff wirkt */
+            background-image: 
+                radial-gradient(var(--gold) 1px, transparent 1px),
+                radial-gradient(var(--gold) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            /* Überlagerung damit es dunkel und edel bleibt, nicht zu unruhig */
+            box-shadow: inset 0 0 0 1000px rgba(12, 36, 97, 0.9); 
         }
 
         .container {
-            background: var(--card);
-            padding: 1.5rem; /* Weniger Innenabstand auf Mobile */
+            background: rgba(25, 42, 86, 0.95); /* Fast undurchsichtig */
+            padding: 1.5rem;
             border-radius: var(--radius);
-            box-shadow: 0 5px 20px rgba(225, 112, 85, 0.1);
+            /* Edler doppelter Goldrand */
+            border: 3px double var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             width: 100%;
-            max-width: 500px; /* Begrenzung für Tablets/Desktop */
+            max-width: 500px;
             margin-top: 10px;
             margin-bottom: 40px;
-            border: 1px solid #fff;
+            backdrop-filter: blur(10px); /* Glas-Effekt falls supported */
         }
 
         h1 { 
-            color: var(--primary); 
+            color: var(--gold); 
             text-align: center; 
             margin: 0 0 5px 0;
-            font-family: 'Georgia', serif; 
-            font-size: clamp(2rem, 6vw, 2.5rem); /* Skaliert mit der Bildschirmbreite */
+            font-family: 'Playfair Display', serif; 
+            font-size: clamp(2rem, 6vw, 2.5rem);
             line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
         }
         
         .subtitle { 
             text-align: center; 
-            color: #b2bec3; 
+            color: var(--text-platinum); 
+            opacity: 0.7;
             margin-bottom: 25px; 
-            font-weight: 500; 
-            letter-spacing: 1px; 
+            font-weight: 300; 
+            letter-spacing: 2px; 
             text-transform: uppercase;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
 
         h2 { 
-            color: var(--secondary); 
-            font-size: 1.2rem; 
+            font-family: 'Playfair Display', serif;
+            color: var(--gold); 
+            font-size: 1.3rem; 
             margin-top: 0; 
             margin-bottom: 15px;
             line-height: 1.4;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 5px;
         }
         
-        p { line-height: 1.6; }
+        p { line-height: 1.6; font-weight: 300; }
 
         .btn {
             width: 100%;
-            padding: 18px; /* Größere Touch-Fläche */
+            padding: 18px;
             margin-top: 20px;
             border: none;
-            border-radius: 15px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+            border-radius: 12px;
+            /* Gold Verlauf */
+            background: linear-gradient(135deg, var(--gold), #b38f2d);
+            color: var(--bg-royal); /* Dunkler Text auf Gold für Lesbarkeit */
             font-size: 1.1rem;
             font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             cursor: pointer;
             transition: transform 0.1s;
-            box-shadow: 0 4px 10px rgba(214, 48, 49, 0.2);
-            /* Verhindert Textauswahl auf Buttons */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             user-select: none; 
         }
-        .btn:active { transform: scale(0.96); }
+        .btn:active { transform: scale(0.97); }
 
-        .step { display: none; animation: fadeIn 0.4s ease-out; }
+        .step { display: none; animation: fadeIn 0.5s ease-out; }
         .step.active { display: block; }
 
-        /* Grid für Mobile optimiert */
         .options-grid { 
             display: grid; 
-            grid-template-columns: 1fr 1fr; /* 2 Spalten bleiben meist gut lesbar */
+            grid-template-columns: 1fr 1fr; 
             gap: 10px; 
             margin-top: 10px; 
         }
         
         .option-card {
-            background: #fff;
+            background: rgba(0, 0, 0, 0.2);
             padding: 12px 10px;
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: center;
             cursor: pointer;
-            border: 2px solid #f1f2f6;
-            font-weight: 500;
-            color: #636e72;
-            font-size: 0.95rem;
-            /* Flexbox für Zentrierung des Textes */
+            border: 1px solid rgba(212, 175, 55, 0.3); /* Dezent Gold */
+            font-weight: 400;
+            color: var(--text-platinum);
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 50px; 
+            transition: all 0.2s;
         }
         .option-card.selected {
-            border-color: var(--primary);
-            background-color: #fff0e6;
-            color: var(--primary);
+            border-color: var(--gold);
+            background-color: rgba(212, 175, 55, 0.2); /* Transparentes Gold */
+            color: var(--gold);
             font-weight: bold;
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
         }
 
         label {
-            font-size: 0.9rem;
-            font-weight: 600;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
             display: block;
-            margin-top: 20px;
+            margin-top: 25px;
             margin-bottom: 8px;
+            letter-spacing: 0.5px;
         }
 
-        /* Inputs: 16px font-size verhindert Zoom auf iOS */
         input, textarea {
             width: 100%;
             padding: 14px;
-            border: 2px solid #f1f2f6;
-            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 10px;
             font-size: 16px; 
             font-family: inherit;
-            background: #fafafa;
-            -webkit-appearance: none; /* Entfernt iOS Standard-Schatten */
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-platinum);
+            -webkit-appearance: none;
         }
-        input:focus { outline: none; border-color: var(--primary); background: #fff; }
+        input:focus { outline: none; border-color: var(--gold); background: rgba(0, 0, 0, 0.4); }
+        input::placeholder { color: rgba(229, 228, 226, 0.3); }
 
-        /* Ergebnis Bild: Responsive Aspect Ratio */
+        /* Ergebnis Bild */
         .result-img {
             width: 100%;
             height: auto;
-            aspect-ratio: 4/3; /* Perfektes Verhältnis für Portrait Mode */
+            aspect-ratio: 4/3; 
             object-fit: cover;
-            border-radius: 15px;
+            border-radius: 12px;
             margin-bottom: 15px;
-            background-color: #eee;
+            background-color: #0c2461;
+            border: 2px solid var(--gold);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
         
         .recipe-box {
-            background: #fff8f5;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
             padding: 15px;
             margin: 15px 0;
             text-align: left;
             line-height: 1.5;
-            color: #444;
-            border: 1px solid #ffeaa7;
+            color: var(--text-platinum);
+            border-left: 3px solid var(--gold);
             font-size: 0.95rem;
         }
 
         .drink-suggestion {
-            background: #eefbfb; 
+            background: linear-gradient(to right, rgba(212, 175, 55, 0.1), transparent);
             padding: 12px;
             border-radius: 12px;
             margin-top: 15px;
             display: flex;
             align-items: flex-start;
             gap: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
+            border: 3px solid rgba(212, 175, 55, 0.2);
+            border-top: 3px solid var(--gold);
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -197,19 +225,17 @@
         }
         
         .reset-link {
-            display: block; text-align: center; margin-top: 20px; color: #b2bec3; font-size: 0.8rem; padding: 10px; cursor: pointer;
+            display: block; text-align: center; margin-top: 20px; color: rgba(255,255,255,0.3); font-size: 0.75rem; padding: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
         }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Extra Anpassungen für sehr kleine Bildschirme (iPhone SE etc.) */
+        /* Extra Anpassungen für sehr kleine Bildschirme */
         @media (max-width: 360px) {
             h1 { font-size: 2rem; }
             .container { padding: 1.2rem; }
-            .btn { padding: 15px; }
-            .options-grid { gap: 8px; }
-            .option-card { font-size: 0.85rem; padding: 10px 5px; }
+            .option-card { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -218,83 +244,83 @@
 <div class="container">
     
     <div id="step-setup" class="step active">
-        <h1>Soulfood 🍲</h1>
-        <div class="subtitle">Essen, das glücklich macht.</div>
+        <h1>Soulfood</h1>
+        <div class="subtitle">Exklusiver Genuss, kuratiert von KI</div>
         
-        <p style="text-align:center; color:#636e72; font-size: 0.95rem;">
-            Willkommen in deiner Komfortzone.<br>
-            Lass uns was Gutes finden.
+        <p style="text-align:center; font-size: 0.95rem;">
+            Willkommen an der Tafel.<br>
+            Bitte authentifizieren Sie sich für den Zugang.
         </p>
         
-        <div style="background: #fff8f5; padding: 15px; border-radius: 12px; font-size: 0.85rem; margin-top:20px; color:#636e72; border: 1px dashed var(--primary);">
-            <strong>Erster Schritt:</strong><br>
-            Wir brauchen einen API Key für den Chefkoch.
-            <br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--primary); text-decoration:none; font-weight:bold; display:block; margin-top:5px;">→ Key hier kopieren</a>
+        <div style="background: rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 10px; font-size: 0.85rem; margin-top:20px; border: 1px solid var(--gold); color: var(--gold);">
+            <strong>Systemzugang:</strong><br>
+            Ein API Key wird benötigt.
+            <br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--text-platinum); text-decoration:none; font-weight:bold; display:block; margin-top:5px; border-bottom: 1px dotted var(--text-platinum); width: fit-content;">→ Key hier anfordern</a>
         </div>
         <br>
-        <input type="password" id="apiKey" placeholder="Hier Key einfügen (AIza...)">
-        <button class="btn" onclick="saveKey()">Starten ❤️</button>
+        <input type="password" id="apiKey" placeholder="Key eingeben (AIza...)">
+        <button class="btn" onclick="saveKey()">Eintreten</button>
     </div>
 
     <div id="step-category" class="step">
-        <h2>Worauf hast du Lust?</h2>
+        <h2>Wonach steht der Sinn?</h2>
         <div class="options-grid" id="catGrid"></div>
-        <button class="btn" onclick="nextStep('step-people')">Weiter</button>
-        <div class="reset-link" onclick="resetKey()">Einstellungen zurücksetzen</div>
+        <button class="btn" onclick="nextStep('step-people')">Weiter zur Auswahl</button>
+        <div class="reset-link" onclick="resetKey()">Zugangsschlüssel ändern</div>
     </div>
 
     <div id="step-people" class="step">
-        <h2>Die Details</h2>
-        <label>Anzahl Personen</label>
+        <h2>Die Gesellschaft</h2>
+        <label>Anzahl der Gäste</label>
         <input type="number" id="peopleCount" value="2" min="1" inputmode="numeric" pattern="[0-9]*">
         
-        <label>Ernährungsweise</label>
+        <label>Präferenz</label>
         <div class="options-grid">
-            <div class="option-card selected" onclick="selectDiet(this, 'Alles')">Alles 🍖</div>
-            <div class="option-card" onclick="selectDiet(this, 'Vegetarisch')">Veggie 🧀</div>
-            <div class="option-card" onclick="selectDiet(this, 'Vegan')">Vegan 🌱</div>
-            <div class="option-card" onclick="selectDiet(this, 'Pescetarisch')">Fisch 🐟</div>
+            <div class="option-card selected" onclick="selectDiet(this, 'Alles')">Keine Einschränkung</div>
+            <div class="option-card" onclick="selectDiet(this, 'Vegetarisch')">Vegetarisch</div>
+            <div class="option-card" onclick="selectDiet(this, 'Vegan')">Vegan</div>
+            <div class="option-card" onclick="selectDiet(this, 'Pescetarisch')">Pescetarisch</div>
         </div>
 
-        <label>Getränke</label>
+        <label>Begleitung (Getränke)</label>
         <div class="options-grid">
-            <div class="option-card selected" onclick="selectDrink(this, 'non-alcoholic')">Softdrinks 🥤</div>
-            <div class="option-card" onclick="selectDrink(this, 'alcoholic')">Mit Alkohol 🍷</div>
+            <div class="option-card selected" onclick="selectDrink(this, 'non-alcoholic')">Alkoholfrei</div>
+            <div class="option-card" onclick="selectDrink(this, 'alcoholic')">Mit Alkohol</div>
         </div>
 
-        <label>Sonstiges (Allergien?)</label>
-        <input type="text" id="allergies" placeholder="z.B. keine Nüsse">
+        <label>Besondere Wünsche</label>
+        <input type="text" id="allergies" placeholder="Allergien oder Notizen">
         
-        <button class="btn" onclick="generateFood()">Inspiration finden ✨</button>
+        <button class="btn" onclick="generateFood()">Inspiration erbitten</button>
     </div>
 
     <div id="step-loading" class="step" style="text-align: center;">
-        <h2 style="color:var(--primary); margin-top:20px;">Moment...</h2>
+        <h2 style="color:var(--gold); border:none; margin-top:20px;">Kuratierung läuft...</h2>
         <div class="loader"></div>
-        <p id="loadingText" style="color:#888; font-size:0.9rem;">Suche das perfekte Soulfood.</p>
+        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Die besten Zutaten werden gewählt.</p>
     </div>
 
     <div id="step-result" class="step">
-        <h2 id="resTitle" style="font-family: 'Georgia', serif; font-size:1.8rem; margin-bottom:10px; color: var(--primary);">Gericht</h2>
+        <h2 id="resTitle" style="font-family: 'Playfair Display', serif; font-size:2rem; margin-bottom:10px; color: var(--gold); border:none; text-align: center;">Gericht</h2>
         
-        <img id="resImg" class="result-img" src="" alt="Leckeres Essen">
+        <img id="resImg" class="result-img" src="" alt="Exquisites Essen">
         
-        <p id="resDesc" style="text-align: center; color: #555; font-style: italic; font-size: 1rem; margin-bottom: 20px;"></p>
+        <p id="resDesc" style="text-align: center; color: var(--text-platinum); font-style: italic; font-size: 1rem; margin-bottom: 20px;"></p>
 
         <div class="drink-suggestion">
-            <span style="font-size: 1.8rem;">🍹</span>
+            <span style="font-size: 1.8rem;">🥂</span>
             <div>
-                <strong id="drinkName" style="color:#0984e3; font-size:0.9rem;">Getränk</strong>
-                <div id="drinkReason" style="font-size: 0.85rem; color: #555; margin-top:2px;"></div>
+                <strong id="drinkName" style="color:var(--gold); font-size:0.9rem; text-transform: uppercase;">Empfehlung</strong>
+                <div id="drinkReason" style="font-size: 0.85rem; color: var(--text-platinum); opacity: 0.8; margin-top:2px;"></div>
             </div>
         </div>
 
         <div class="recipe-box">
-            <h3 style="color:var(--secondary); margin-top:0; font-size:1rem;">🥣 Die Idee</h3>
+            <h3 style="color:var(--gold); margin-top:0; font-size:1rem; font-family: 'Playfair Display', serif;">⚜️ Das Konzept</h3>
             <p id="resRecipe" style="white-space: pre-line; margin-bottom:0;"></p>
         </div>
 
-        <button class="btn" style="background: transparent; border: 2px solid var(--primary); color: var(--primary);" onclick="location.reload()">Nochmal 🔄</button>
+        <button class="btn" style="background: transparent; border: 2px solid var(--gold); color: var(--gold);" onclick="location.reload()">Neue Auswahl</button>
     </div>
 
 </div>
@@ -302,7 +328,7 @@
 <script type="module">
     import { GoogleGenerativeAI } from "@google/generative-ai";
 
-    const STORAGE_KEY = "soulfood_mobile_key";
+    const STORAGE_KEY = "soulfood_royal_mobile_key";
     let apiKey = localStorage.getItem(STORAGE_KEY);
     
     let userSelections = {
@@ -313,10 +339,10 @@
         allergies: ""
     };
 
-    // Kurze Namen für Mobile Grid
+    // Kategorien
     const categories = [
-        "Frühstück", "Brunch", "Mittag", 
-        "Abendessen", "Snacks", "Süßes", "Suppen", "Nur Drinks"
+        "Frühstück", "Brunch", "Mittagessen", 
+        "Abendessen", "Snacks", "Dessert", "Suppen", "Nur Drinks"
     ];
 
     window.onload = () => {
@@ -349,7 +375,7 @@
             apiKey = input;
             location.reload();
         } else {
-            alert("Bitte gib einen Key ein.");
+            alert("Bitte geben Sie einen gültigen Schlüssel ein.");
         }
     };
     
@@ -360,12 +386,12 @@
 
     window.nextStep = (id) => {
         if(id === 'step-people' && !userSelections.category) {
-            alert("Bitte wähle zuerst eine Kategorie.");
+            alert("Bitte wählen Sie zuerst eine Kategorie.");
             return;
         }
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0); // Nach oben scrollen beim Wechsel
+        window.scrollTo(0,0);
     };
 
     window.selectDiet = (el, val) => {
@@ -391,18 +417,19 @@
             const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
             const prompt = `
-                Experte für Soulfood. Schlage EIN Gericht vor, das glücklich macht.
+                Du bist ein Experte für Soulfood und Comfort Food.
+                Schlage EIN Gericht vor, das glücklich macht, aber beschreibe es elegant und appetitlich.
                 Kontext: ${userSelections.category}, ${userSelections.people} Personen, Ernährung: ${userSelections.diet}, Allergien: ${userSelections.allergies}.
                 Getränkewunsch: ${userSelections.drinkPref}.
                 
                 Antworte NUR als JSON:
                 {
                     "dishName": "Name (Deutsch)",
-                    "description": "Warum es gut tut (1 Satz).",
-                    "drinkName": "Getränk",
+                    "description": "Warum es gut tut (1 Satz, elegant formuliert).",
+                    "drinkName": "Passendes Getränk",
                     "drinkReason": "Warum es passt (kurz)",
                     "recipeShort": "Grobe Idee der Zubereitung (max 30 Wörter).",
-                    "imageSearchTerm": "English food term for photography"
+                    "imageSearchTerm": "English food term for high quality photography"
                 }
             `;
 
@@ -411,7 +438,7 @@
             const text = response.text().replace(/```json/g, '').replace(/```/g, ''); 
             const data = JSON.parse(text);
 
-            const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(data.imageSearchTerm + " comfort food cozy warm lighting food photography 4k")}`;
+            const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(data.imageSearchTerm + " elegant gourmet food photography dark rich colors cinematic lighting 8k michelin plating")}`;
 
             document.getElementById('resTitle').innerText = data.dishName;
             document.getElementById('resDesc').innerText = data.description;
@@ -424,7 +451,7 @@
 
         } catch (error) {
             console.error(error);
-            alert("Fehler. Bitte API Key prüfen.");
+            alert("Es gab einen Fehler. Bitte prüfen Sie den API Key.");
             window.nextStep('step-setup');
         }
     };
