@@ -7,14 +7,6 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     
-    <script type="importmap">
-      {
-        "imports": {
-          "@google/generative-ai": "https://esm.run/@google/generative-ai@latest"
-        }
-      }
-    </script>
-    
     <style>
         :root {
             /* LUXUS PALETTE */
@@ -22,14 +14,10 @@
             --bg-overlay: rgba(12, 36, 97, 0.94); 
             --text-platinum: #E5E4E2; 
             --gold: #D4AF37;          
-            --gold-light: #FDCB6E;    
             --radius: 16px;
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Lato', sans-serif;
@@ -41,8 +29,7 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            
-            /* MINIGRAM MUSTER */
+            /* Minigramm Muster */
             background-image: 
                 radial-gradient(var(--gold) 1.5px, transparent 1.5px),
                 radial-gradient(var(--gold) 1.5px, transparent 1.5px);
@@ -65,176 +52,91 @@
             position: relative;
         }
 
-        /* Dekorative Ecken */
         .container::before, .container::after {
-            content: "⚜️";
-            position: absolute;
-            font-size: 1.2rem;
-            color: var(--gold);
-            opacity: 0.8;
+            content: "⚜️"; position: absolute; font-size: 1.2rem; color: var(--gold); opacity: 0.8;
         }
         .container::before { top: 10px; left: 10px; }
         .container::after { top: 10px; right: 10px; }
 
         h1 { 
-            color: var(--gold); 
-            text-align: center; 
-            margin: 10px 0 5px 0;
+            color: var(--gold); text-align: center; margin: 10px 0 5px 0;
             font-family: 'Playfair Display', serif; 
             font-size: clamp(2.2rem, 8vw, 2.8rem);
-            line-height: 1.1;
-            text-shadow: 0 3px 6px rgba(0,0,0,0.4);
-            letter-spacing: 1px;
+            line-height: 1.1; text-shadow: 0 3px 6px rgba(0,0,0,0.4); letter-spacing: 1px;
         }
         
         .subtitle { 
-            text-align: center; 
-            color: var(--text-platinum); 
-            opacity: 0.8;
-            margin-bottom: 30px; 
-            font-weight: 300; 
-            letter-spacing: 3px; 
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            display: inline-block;
-            padding-bottom: 5px;
-            width: 100%;
+            text-align: center; color: var(--text-platinum); opacity: 0.8; margin-bottom: 30px; 
+            font-weight: 300; letter-spacing: 3px; text-transform: uppercase; font-size: 0.65rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3); display: inline-block; padding-bottom: 5px; width: 100%;
         }
 
         h2 { 
-            font-family: 'Playfair Display', serif;
-            color: var(--gold); 
-            font-size: 1.4rem; 
-            margin-top: 0; 
-            margin-bottom: 15px;
-            line-height: 1.4;
-            text-align: center;
+            font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.4rem; 
+            margin-top: 0; margin-bottom: 15px; text-align: center;
         }
         
-        p { line-height: 1.6; font-weight: 300; }
-
         .btn {
-            width: 100%;
-            padding: 18px;
-            margin-top: 25px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--gold), #8e7318);
-            color: #05102a;
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: 'Playfair Display', serif;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            transition: transform 0.1s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            user-select: none; 
+            width: 100%; padding: 18px; margin-top: 25px; border: none; border-radius: 12px;
+            background: linear-gradient(135deg, var(--gold), #8e7318); color: #05102a;
+            font-size: 1.1rem; font-weight: 700; font-family: 'Playfair Display', serif;
+            text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); user-select: none; 
         }
         .btn:active { transform: scale(0.97); }
 
         .step { display: none; animation: fadeIn 0.6s ease-out; }
         .step.active { display: block; }
 
-        .options-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 12px; 
-            margin-top: 15px; 
-        }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
         
         .option-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px 10px;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            border: 1px solid rgba(212, 175, 55, 0.2); 
-            font-weight: 400;
-            color: var(--text-platinum);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 60px; 
+            background: rgba(255, 255, 255, 0.05); padding: 15px 10px; border-radius: 10px;
+            text-align: center; cursor: pointer; border: 1px solid rgba(212, 175, 55, 0.2); 
+            font-weight: 400; color: var(--text-platinum); font-size: 0.9rem;
+            display: flex; align-items: center; justify-content: center; min-height: 60px; 
             transition: all 0.2s;
         }
         .option-card.selected {
-            border-color: var(--gold);
-            background-color: rgba(212, 175, 55, 0.15); 
-            color: var(--gold);
-            font-weight: bold;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+            border-color: var(--gold); background-color: rgba(212, 175, 55, 0.15); 
+            color: var(--gold); font-weight: bold; box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
         }
 
         label {
-            color: var(--gold);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            display: block;
-            margin-top: 30px;
-            margin-bottom: 10px;
-            text-align: center;
+            color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.1rem;
+            display: block; margin-top: 30px; margin-bottom: 10px; text-align: center;
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 10px;
-            font-size: 16px; 
-            font-family: 'Lato', sans-serif;
-            background: rgba(0, 0, 0, 0.3);
-            color: var(--text-platinum);
-            -webkit-appearance: none;
-            text-align: center;
+        input {
+            width: 100%; padding: 15px; border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 10px; font-size: 16px; font-family: 'Lato', sans-serif;
+            background: rgba(0, 0, 0, 0.3); color: var(--text-platinum);
+            -webkit-appearance: none; text-align: center;
         }
         input:focus { outline: none; border-color: var(--gold); background: rgba(0, 0, 0, 0.5); }
-        input::placeholder { color: rgba(229, 228, 226, 0.3); }
 
         .result-img {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 4/3; 
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            background-color: #0c2461;
-            border: 2px solid var(--gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover;
+            border-radius: 12px; margin-bottom: 20px; background-color: #0c2461;
+            border: 2px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         
         .recipe-box {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: left;
-            line-height: 1.6;
-            color: var(--text-platinum);
-            border-left: 3px solid var(--gold);
-            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px;
+            margin: 20px 0; text-align: left; line-height: 1.6; color: var(--text-platinum);
+            border-left: 3px solid var(--gold); font-size: 0.95rem;
         }
 
         .drink-suggestion {
             background: linear-gradient(to right, rgba(212, 175, 55, 0.15), transparent);
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
+            padding: 15px; border-radius: 12px; margin-top: 20px;
+            display: flex; align-items: flex-start; gap: 15px;
             border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .loader {
-            border: 3px solid rgba(212, 175, 55, 0.2);
-            border-top: 3px solid var(--gold);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
+            border: 3px solid rgba(212, 175, 55, 0.2); border-top: 3px solid var(--gold);
+            border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite;
             margin: 30px auto;
         }
         
@@ -252,27 +154,27 @@
     
     <div id="step-setup" class="step active">
         <h1>Soulfood</h1>
-        <div class="subtitle">Royal Edition</div>
+        <div class="subtitle">Royal AI Edition</div>
         
         <p style="text-align:center; font-size: 1rem; margin-top: 30px;">
             Willkommen.<br>
-            Bitte authentifizieren Sie sich für den Zugang.
+            Hier kocht die Künstliche Intelligenz.
         </p>
         
         <div style="background: rgba(212, 175, 55, 0.05); padding: 15px; border-radius: 10px; font-size: 0.85rem; margin-top:20px; border: 1px solid var(--gold); color: var(--gold); text-align: center;">
-            <strong>Systemzugang:</strong><br>
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--text-platinum); text-decoration:none; font-weight:bold; display:block; margin-top:5px; border-bottom: 1px dotted var(--text-platinum); width: fit-content; margin: 5px auto;">→ API Key hier holen</a>
+            <strong>Setup:</strong><br>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--text-platinum); text-decoration:none; font-weight:bold; display:block; margin-top:5px; border-bottom: 1px dotted var(--text-platinum); width: fit-content; margin: 5px auto;">→ API Key kostenlos holen</a>
         </div>
         <br>
         <input type="password" id="apiKey" placeholder="Key eingeben (AIza...)">
-        <button class="btn" onclick="saveKey()">Eintreten</button>
+        <button class="btn" onclick="saveKey()">Verbinden</button>
     </div>
 
     <div id="step-category" class="step">
         <h2>Ihre Wahl?</h2>
         <div class="options-grid" id="catGrid"></div>
         <button class="btn" onclick="nextStep('step-people')">Bestätigen</button>
-        <div class="reset-link" onclick="resetKey()">Schlüssel ändern</div>
+        <div class="reset-link" onclick="resetKey()">Key ändern</div>
     </div>
 
     <div id="step-people" class="step">
@@ -301,9 +203,9 @@
     </div>
 
     <div id="step-loading" class="step" style="text-align: center;">
-        <h2 style="color:var(--gold); border:none; margin-top:40px;">Einen Moment...</h2>
+        <h2 style="color:var(--gold); border:none; margin-top:40px;">Verbindung zur KI...</h2>
         <div class="loader"></div>
-        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Die besten Optionen werden geprüft.</p>
+        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Die besten Optionen werden berechnet.</p>
     </div>
 
     <div id="step-result" class="step">
@@ -331,11 +233,11 @@
 
 </div>
 
-<script type="module">
-    import { GoogleGenerativeAI } from "@google/generative-ai";
-
-    // Eindeutiger Speicher-Key
-    const STORAGE_KEY = "soulfood_royal_fix_final_v3";
+<script>
+    // --- KEINE SDK IMPORTIEREN, NUR STANDARD JS ---
+    // Das verhindert 99% der "Unregistered Caller" Fehler
+    
+    const STORAGE_KEY = "soulfood_direct_key_v1";
     let apiKey = localStorage.getItem(STORAGE_KEY);
     
     let userSelections = {
@@ -412,31 +314,32 @@
         userSelections.drinkPref = val;
     };
 
-    // --- SMART GENERATE FUNKTION ---
-    // Diese Funktion probiert nacheinander die neuesten Modelle, falls eines ausfällt.
-    async function tryGenerate(prompt) {
-        const genAI = new GoogleGenerativeAI(apiKey);
-        
-        // Liste der Modelle, die wir probieren (Das Neueste zuerst)
-        // gemini-1.5-flash ist der aktuelle Standard für die Free Tier
-        const modelsToTry = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.0-pro"];
-        
-        let lastError = null;
+    // --- DIE DIREKTE FETCH METHODE ---
+    async function callGeminiDirectly(prompt) {
+        // Wir nutzen das flash Modell, das ist schnell und kostenlos
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-        for (const modelName of modelsToTry) {
-            try {
-                console.log("Versuche Verbindung mit Modell:", modelName);
-                const model = genAI.getGenerativeModel({ model: modelName });
-                const result = await model.generateContent(prompt);
-                const response = await result.response;
-                return response.text(); // Hat geklappt!
-            } catch (error) {
-                console.warn(`Fehler mit ${modelName}:`, error.message);
-                lastError = error;
-                // Schleife läuft weiter zum nächsten Modell
-            }
+        const requestBody = {
+            contents: [{
+                parts: [{ text: prompt }]
+            }]
+        };
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error.message || "API Error");
         }
-        throw lastError; // Alle Modelle fehlgeschlagen
+
+        const data = await response.json();
+        return data.candidates[0].content.parts[0].text;
     }
 
     window.generateFood = async () => {
@@ -452,7 +355,7 @@
                 Kontext: ${userSelections.category}, ${userSelections.people} Personen, Ernährung: ${userSelections.diet}, Allergien: ${userSelections.allergies}.
                 Getränkewunsch: ${userSelections.drinkPref}.
                 
-                Antworte NUR als JSON:
+                Antworte NUR mit reinem JSON (kein Markdown 'json' davor), genau in diesem Format:
                 {
                     "dishName": "Name (Deutsch)",
                     "description": "Warum es gut tut (1 Satz, elegant formuliert).",
@@ -463,10 +366,11 @@
                 }
             `;
 
-            // Nutze die intelligente Funktion
-            const textRaw = await tryGenerate(prompt);
+            // Direkter Aufruf ohne Library
+            const textRaw = await callGeminiDirectly(prompt);
             
-            const textClean = textRaw.replace(/```json/g, '').replace(/```/g, ''); 
+            // JSON säubern
+            const textClean = textRaw.replace(/```json/g, '').replace(/```/g, '').trim(); 
             const data = JSON.parse(textClean);
 
             const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(data.imageSearchTerm + " elegant gourmet food photography dark rich colors cinematic lighting 8k michelin plating")}`;
@@ -481,8 +385,8 @@
             window.nextStep('step-result');
 
         } catch (error) {
-            console.error("Alle Versuche fehlgeschlagen:", error);
-            alert("Wir konnten den Hofkoch nicht erreichen (API Fehler). Bitte erstelle einen NEUEN API Key auf Google AI Studio, da sich die Berechtigungen geändert haben könnten.");
+            console.error("API Fehler:", error);
+            alert("Es gab ein Problem: " + error.message + "\n\nStelle sicher, dass der Key gültig ist und nicht gelöscht wurde.");
             window.nextStep('step-setup');
         }
     };
