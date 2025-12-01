@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Soulfood Royal ⚜️</title>
+    <title>Soulfood 🍲</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     
@@ -11,7 +11,7 @@
         :root {
             /* LUXUS PALETTE */
             --bg-royal: #0c2461;      
-            --bg-overlay: rgba(12, 36, 97, 0.96); /* Dunkler Schleier über dem Muster */
+            --bg-overlay: rgba(12, 36, 97, 0.95);
             --text-platinum: #E5E4E2; 
             --gold: #D4AF37;          
             --radius: 16px;
@@ -30,8 +30,7 @@
             align-items: flex-start;
             min-height: 100vh;
             
-            /* DAS ⚜️ MONOGRAMM MUSTER */
-            /* Wir nutzen ein SVG-Daten-Bild, um das Emoji als Kachel zu wiederholen */
+            /* ⚜️ MONOGRAMM MUSTER */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 100 100'%3E%3Ctext y='50%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='35' fill='%23D4AF37' opacity='0.15'%3E⚜️%3C/text%3E%3C/svg%3E");
             background-repeat: repeat;
         }
@@ -66,7 +65,7 @@
         
         .subtitle { 
             text-align: center; color: var(--text-platinum); opacity: 0.8; margin-bottom: 30px; 
-            font-weight: 300; letter-spacing: 3px; text-transform: uppercase; font-size: 0.65rem;
+            font-weight: 300; letter-spacing: 2px; text-transform: uppercase; font-size: 0.75rem;
             border-bottom: 1px solid rgba(212, 175, 55, 0.3); display: inline-block; padding-bottom: 5px; width: 100%;
         }
 
@@ -80,7 +79,7 @@
             background: linear-gradient(135deg, var(--gold), #8e7318); color: #05102a;
             font-size: 1.1rem; font-weight: 700; font-family: 'Playfair Display', serif;
             text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); user-select: none; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); user-select: none; transition: transform 0.1s;
         }
         .btn:active { transform: scale(0.97); }
 
@@ -113,6 +112,15 @@
             -webkit-appearance: none; text-align: center;
         }
         input:focus { outline: none; border-color: var(--gold); background: rgba(0, 0, 0, 0.5); }
+
+        /* API Feld Style */
+        .api-details {
+            margin-top: 30px; font-size: 0.8rem; color: rgba(255,255,255,0.4); 
+            border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center;
+        }
+        .api-details input {
+            font-size: 0.8rem; padding: 10px; margin-top: 10px;
+        }
 
         .result-img {
             width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover;
@@ -152,29 +160,29 @@
 <div class="container">
     
     <div id="step-setup" class="step active">
-        <h1>Soulfood</h1>
-        <div class="subtitle">Royal Edition</div>
+        <h1>Soulfood 🍲</h1>
+        <div class="subtitle">Essen, das glücklich macht.</div>
         
-        <p style="text-align:center; font-size: 1rem; margin-top: 30px;">
-            Willkommen an der Tafel.<br>
-            Bitte authentifizieren Sie sich.
+        <p style="text-align:center; color:var(--text-platinum); font-size: 0.95rem; line-height: 1.6;">
+            Willkommen in deiner Komfortzone.<br>
+            Lass uns was Gutes finden.
         </p>
         
-        <div style="background: rgba(212, 175, 55, 0.05); padding: 15px; border-radius: 10px; font-size: 0.85rem; margin-top:20px; border: 1px solid var(--gold); color: var(--gold); text-align: center;">
-            <strong>Systemzugang:</strong><br>
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--text-platinum); text-decoration:none; font-weight:bold; display:block; margin-top:5px; border-bottom: 1px dotted var(--text-platinum); width: fit-content; margin: 5px auto;">→ API Key hier holen</a>
+        <button class="btn" onclick="startApp()">Starten</button>
+
+        <div class="api-details">
+            <span onclick="toggleApiInput()" style="cursor:pointer; text-decoration:underline;">Erweiterte Einstellungen (KI Key)</span>
+            <div id="apiInputWrapper" style="display:none;">
+                <input type="password" id="apiKey" placeholder="Google API Key (Optional)">
+                <p style="margin-top:5px; font-size:0.7rem;">Leer lassen für Offline-Modus.</p>
+            </div>
         </div>
-        <br>
-        <p style="text-align:center; font-size: 0.8rem; opacity: 0.6;">(Kein Key? Einfach leer lassen für Demo-Modus)</p>
-        <input type="password" id="apiKey" placeholder="Key eingeben...">
-        <button class="btn" onclick="saveKey()">Eintreten</button>
     </div>
 
     <div id="step-category" class="step">
         <h2>Ihre Wahl?</h2>
         <div class="options-grid" id="catGrid"></div>
         <button class="btn" onclick="nextStep('step-people')">Bestätigen</button>
-        <div class="reset-link" onclick="resetKey()">Key ändern</div>
     </div>
 
     <div id="step-people" class="step">
@@ -205,7 +213,7 @@
     <div id="step-loading" class="step" style="text-align: center;">
         <h2 style="color:var(--gold); border:none; margin-top:40px;">Kuratierung...</h2>
         <div class="loader"></div>
-        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Hofkoch oder KI werden konsultiert.</p>
+        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Die perfekte Wahl wird getroffen.</p>
     </div>
 
     <div id="step-result" class="step">
@@ -234,23 +242,23 @@
 </div>
 
 <script>
-    const STORAGE_KEY = "soulfood_hybrid_v1";
+    const STORAGE_KEY = "soulfood_final_v2";
     let apiKey = localStorage.getItem(STORAGE_KEY) || "";
     
-    let userSelections = {
-        category: "",
-        diet: "Alles",
-        drinkPref: "non-alcoholic",
-        people: 2,
-        allergies: ""
-    };
+    function toggleApiInput() {
+        const wrapper = document.getElementById('apiInputWrapper');
+        wrapper.style.display = wrapper.style.display === 'none' ? 'block' : 'none';
+    }
 
-    const categories = [
-        "Frühstück", "Brunch", "Mittagessen", 
-        "Abendessen", "Snacks", "Dessert", "Suppen", "Nur Drinks"
-    ];
+    if(apiKey) {
+        document.getElementById('apiKey').value = apiKey;
+    }
 
-    // --- DIE OFFLINE "KI" DATENBANK ---
+    let userSelections = { category: "", diet: "Alles", drinkPref: "non-alcoholic", people: 2, allergies: "" };
+
+    const categories = ["Frühstück", "Brunch", "Mittagessen", "Abendessen", "Snacks", "Dessert", "Suppen", "Nur Drinks"];
+
+    // OFFLINE DATENBANK
     const offlineDatabase = [
         { name: "Egg Benedict Royal", category: "Frühstück", diet: "Alles", desc: "Pochierte Eier auf Brioche mit Sauce Hollandaise.", drink: "Mimosa", drinkReason: "Klassische Brunch-Begleitung.", img: "Eggs Benedict gourmet", recipe: "Pochieren, rösten, Hollandaise rühren." },
         { name: "Avocado Toast Deluxe", category: "Frühstück", diet: "Vegan", desc: "Sauerteigbrot mit Avocado-Creme und Granatapfel.", drink: "Ingwer-Shot", drinkReason: "Belebender Start.", img: "Avocado toast pomegranate", recipe: "Brot rösten, Avocado würzen, toppen." },
@@ -260,16 +268,13 @@
         { name: "Buddha Bowl", category: "Mittagessen", diet: "Vegan", desc: "Bunte Bowl mit Quinoa, Süßkartoffel und Tahini.", drink: "Kombucha", drinkReason: "Leicht und gesund.", img: "Buddha bowl gourmet", recipe: "Alles anrichten, Dressing darüber." },
         { name: "Lava Cake", category: "Dessert", diet: "Vegetarisch", desc: "Schokokuchen mit flüssigem Kern.", drink: "Espresso", drinkReason: "Bitter trifft Süß.", img: "Chocolate lava cake", recipe: "Kurz backen, warm servieren." },
         { name: "Thai Curry", category: "Abendessen", diet: "Vegan", desc: "Würziges Kokoscurry mit Gemüse.", drink: "Ingwerbier", drinkReason: "Löscht die Schärfe.", img: "Thai green curry", recipe: "Paste anrösten, Kokosmilch dazu." },
-        { name: "Old Fashioned", category: "Nur Drinks", diet: "Alles", desc: "Whiskey, Bitter, Zucker.", drink: "-", drinkReason: "Pur genießen.", img: "Old Fashioned cocktail", recipe: "Rühren auf Eis." }
+        { name: "Old Fashioned", category: "Nur Drinks", diet: "Alles", desc: "Whiskey, Bitter, Zucker.", drink: "-", drinkReason: "Pur genießen.", img: "Old Fashioned cocktail", recipe: "Rühren auf Eis." },
+        { name: "Shakshuka", category: "Frühstück", diet: "Vegetarisch", desc: "Eier in pikanter Tomatensauce.", drink: "Minztee", drinkReason: "Erfrischend zur Schärfe.", img: "Shakshuka pan", recipe: "Tomaten einkochen, Eier stocken lassen." },
+        { name: "Pho Bo", category: "Suppen", diet: "Alles", desc: "Vietnamesische Reisnudelsuppe.", drink: "Limettensaft", drinkReason: "Säure hebt den Geschmack.", img: "Pho Bo soup", recipe: "Brühe lange kochen, über Nudeln gießen." },
+        { name: "Kürbissuppe", category: "Suppen", diet: "Vegan", desc: "Cremig mit Kokosmilch.", drink: "Weißburgunder", drinkReason: "Nussige Note.", img: "Pumpkin soup gourmet", recipe: "Kürbis rösten, pürieren." }
     ];
 
-    window.onload = () => {
-        if(apiKey && apiKey.length > 5) {
-            document.getElementById('step-setup').classList.remove('active');
-            document.getElementById('step-category').classList.add('active');
-        }
-        renderCategories();
-    };
+    window.onload = () => renderCategories();
 
     window.renderCategories = () => {
         const grid = document.getElementById('catGrid');
@@ -286,21 +291,16 @@
         });
     };
 
-    window.saveKey = () => {
-        const input = document.getElementById('apiKey').value.trim();
-        // Erlaubt auch leere Eingabe für Offline Modus
-        localStorage.setItem(STORAGE_KEY, input);
-        apiKey = input;
-        
+    window.startApp = () => {
+        const inputKey = document.getElementById('apiKey').value.trim();
+        if(inputKey.length > 5) {
+            localStorage.setItem(STORAGE_KEY, inputKey);
+            apiKey = inputKey;
+        }
         document.getElementById('step-setup').classList.remove('active');
         document.getElementById('step-category').classList.add('active');
     };
     
-    window.resetKey = () => {
-        localStorage.removeItem(STORAGE_KEY);
-        location.reload();
-    }
-
     window.nextStep = (id) => {
         if(id === 'step-people' && !userSelections.category) {
             alert("Bitte wählen Sie zuerst eine Kategorie.");
@@ -323,45 +323,32 @@
         userSelections.drinkPref = val;
     };
 
-    // --- LOGIK: API Versuchen -> Falls Fehler -> Offline DB ---
+    // --- HYBRID LOGIK ---
     async function fetchFromAPI(prompt) {
-        if(!apiKey || apiKey.length < 10) throw new Error("Kein Key");
-
+        if(!apiKey || apiKey.length < 10) throw new Error("No Key");
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
         });
-
-        if (!response.ok) throw new Error("API Fehler");
+        if (!response.ok) throw new Error("API Fail");
         const data = await response.json();
         const text = data.candidates[0].content.parts[0].text.replace(/```json/g, '').replace(/```/g, '').trim();
         return JSON.parse(text);
     }
 
     function fetchFromOfflineDB() {
-        console.log("Nutze Offline Datenbank...");
-        // 1. Filtern
         let possible = offlineDatabase.filter(d => {
-            // Kategorie Match (grob)
-            const catMatch = d.category === userSelections.category || 
-                             (userSelections.category === "Brunch" && d.category === "Frühstück");
-            
-            // Diät Match
+            const catMatch = d.category === userSelections.category || (userSelections.category === "Brunch" && d.category === "Frühstück");
             let dietMatch = true;
             if (userSelections.diet === "Vegan" && d.diet !== "Vegan") dietMatch = false;
             if (userSelections.diet === "Vegetarisch" && (d.diet === "Alles" || d.diet === "Pescetarisch")) dietMatch = false;
-            
             return catMatch && dietMatch;
         });
-
-        // Fallback wenn leer
-        if(possible.length === 0) possible = offlineDatabase;
+        if(possible.length === 0) possible = offlineDatabase; // Fallback
         
-        // Zufall
         const item = possible[Math.floor(Math.random() * possible.length)];
-        
         return {
             dishName: item.name,
             description: item.desc,
@@ -375,12 +362,10 @@
     window.generateFood = async () => {
         userSelections.people = parseInt(document.getElementById('peopleCount').value);
         userSelections.allergies = document.getElementById('allergies').value;
-
         window.nextStep('step-loading');
         
         const prompt = `
-            Du bist ein Experte für Soulfood.
-            Schlage EIN Gericht vor.
+            Du bist ein Experte für Soulfood. Schlage EIN Gericht vor.
             Kontext: ${userSelections.category}, ${userSelections.people} Personen, Ernährung: ${userSelections.diet}, Allergien: ${userSelections.allergies}.
             Getränkewunsch: ${userSelections.drinkPref}.
             Antworte als JSON: { "dishName": "...", "description": "...", "drinkName": "...", "drinkReason": "...", "recipeShort": "...", "imageSearchTerm": "..." }
@@ -388,17 +373,12 @@
 
         let data;
         try {
-            // Versuch 1: API
             data = await fetchFromAPI(prompt);
         } catch (e) {
-            // Versuch 2: Offline Fallback
-            console.log("Fallback Modus aktiv:", e);
-            // Kurze Wartezeit simulieren
-            await new Promise(r => setTimeout(r, 1000));
+            await new Promise(r => setTimeout(r, 1200)); 
             data = fetchFromOfflineDB();
         }
 
-        // Bild generieren (Geht immer, da externer Dienst)
         const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(data.imageSearchTerm + " elegant gourmet food photography dark rich colors cinematic lighting 8k")}`;
 
         document.getElementById('resTitle').innerText = data.dishName;
