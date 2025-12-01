@@ -11,7 +11,7 @@
         :root {
             /* LUXUS PALETTE */
             --bg-royal: #0c2461;      
-            --bg-overlay: rgba(12, 36, 97, 0.94); 
+            --bg-overlay: rgba(12, 36, 97, 0.96); /* Dunkler Schleier über dem Muster */
             --text-platinum: #E5E4E2; 
             --gold: #D4AF37;          
             --radius: 16px;
@@ -29,27 +29,26 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            /* Minigramm Muster */
-            background-image: 
-                radial-gradient(var(--gold) 1.5px, transparent 1.5px),
-                radial-gradient(var(--gold) 1.5px, transparent 1.5px);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
-            box-shadow: inset 0 0 0 2000px var(--bg-overlay);
+            
+            /* DAS ⚜️ MONOGRAMM MUSTER */
+            /* Wir nutzen ein SVG-Daten-Bild, um das Emoji als Kachel zu wiederholen */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 100 100'%3E%3Ctext y='50%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='35' fill='%23D4AF37' opacity='0.15'%3E⚜️%3C/text%3E%3C/svg%3E");
+            background-repeat: repeat;
         }
 
         .container {
-            background: rgba(20, 30, 60, 0.85);
+            background: rgba(20, 30, 60, 0.9);
             padding: 1.5rem;
             border-radius: var(--radius);
             border: 3px double var(--gold);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
             width: 100%;
             max-width: 500px;
             margin-top: 10px;
             margin-bottom: 40px;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
             position: relative;
+            z-index: 10;
         }
 
         .container::before, .container::after {
@@ -154,20 +153,21 @@
     
     <div id="step-setup" class="step active">
         <h1>Soulfood</h1>
-        <div class="subtitle">Royal AI Edition</div>
+        <div class="subtitle">Royal Edition</div>
         
         <p style="text-align:center; font-size: 1rem; margin-top: 30px;">
-            Willkommen.<br>
-            Hier kocht die Künstliche Intelligenz.
+            Willkommen an der Tafel.<br>
+            Bitte authentifizieren Sie sich.
         </p>
         
         <div style="background: rgba(212, 175, 55, 0.05); padding: 15px; border-radius: 10px; font-size: 0.85rem; margin-top:20px; border: 1px solid var(--gold); color: var(--gold); text-align: center;">
-            <strong>Setup:</strong><br>
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--text-platinum); text-decoration:none; font-weight:bold; display:block; margin-top:5px; border-bottom: 1px dotted var(--text-platinum); width: fit-content; margin: 5px auto;">→ API Key kostenlos holen</a>
+            <strong>Systemzugang:</strong><br>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--text-platinum); text-decoration:none; font-weight:bold; display:block; margin-top:5px; border-bottom: 1px dotted var(--text-platinum); width: fit-content; margin: 5px auto;">→ API Key hier holen</a>
         </div>
         <br>
-        <input type="password" id="apiKey" placeholder="Key eingeben (AIza...)">
-        <button class="btn" onclick="saveKey()">Verbinden</button>
+        <p style="text-align:center; font-size: 0.8rem; opacity: 0.6;">(Kein Key? Einfach leer lassen für Demo-Modus)</p>
+        <input type="password" id="apiKey" placeholder="Key eingeben...">
+        <button class="btn" onclick="saveKey()">Eintreten</button>
     </div>
 
     <div id="step-category" class="step">
@@ -203,9 +203,9 @@
     </div>
 
     <div id="step-loading" class="step" style="text-align: center;">
-        <h2 style="color:var(--gold); border:none; margin-top:40px;">Verbindung zur KI...</h2>
+        <h2 style="color:var(--gold); border:none; margin-top:40px;">Kuratierung...</h2>
         <div class="loader"></div>
-        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Die besten Optionen werden berechnet.</p>
+        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Hofkoch oder KI werden konsultiert.</p>
     </div>
 
     <div id="step-result" class="step">
@@ -234,11 +234,8 @@
 </div>
 
 <script>
-    // --- KEINE SDK IMPORTIEREN, NUR STANDARD JS ---
-    // Das verhindert 99% der "Unregistered Caller" Fehler
-    
-    const STORAGE_KEY = "soulfood_direct_key_v1";
-    let apiKey = localStorage.getItem(STORAGE_KEY);
+    const STORAGE_KEY = "soulfood_hybrid_v1";
+    let apiKey = localStorage.getItem(STORAGE_KEY) || "";
     
     let userSelections = {
         category: "",
@@ -253,8 +250,21 @@
         "Abendessen", "Snacks", "Dessert", "Suppen", "Nur Drinks"
     ];
 
+    // --- DIE OFFLINE "KI" DATENBANK ---
+    const offlineDatabase = [
+        { name: "Egg Benedict Royal", category: "Frühstück", diet: "Alles", desc: "Pochierte Eier auf Brioche mit Sauce Hollandaise.", drink: "Mimosa", drinkReason: "Klassische Brunch-Begleitung.", img: "Eggs Benedict gourmet", recipe: "Pochieren, rösten, Hollandaise rühren." },
+        { name: "Avocado Toast Deluxe", category: "Frühstück", diet: "Vegan", desc: "Sauerteigbrot mit Avocado-Creme und Granatapfel.", drink: "Ingwer-Shot", drinkReason: "Belebender Start.", img: "Avocado toast pomegranate", recipe: "Brot rösten, Avocado würzen, toppen." },
+        { name: "Trüffel-Pasta", category: "Mittagessen", diet: "Vegetarisch", desc: "Frische Pasta mit Butter, Salbei und schwarzem Trüffel.", drink: "Chardonnay", drinkReason: "Passt zur Cremigkeit.", img: "Truffle pasta gourmet", recipe: "Pasta kochen, in Trüffelbutter schwenken." },
+        { name: "Lachsfilet auf Zeder", category: "Abendessen", diet: "Pescetarisch", desc: "Sanft gegarter Lachs mit Raucharoma.", drink: "Riesling", drinkReason: "Säure balanciert das Fett.", img: "Salmon cedar plank", recipe: "Lachs würzen, auf Holzbrett grillen." },
+        { name: "Rinderfilet mit Jus", category: "Abendessen", diet: "Alles", desc: "Zartes Filetsteak mit Rotweinreduktion.", drink: "Cabernet Sauvignon", drinkReason: "Kräftiger Wein zu rotem Fleisch.", img: "Filet Mignon steak dinner", recipe: "Scharf anbraten, im Ofen ziehen lassen." },
+        { name: "Buddha Bowl", category: "Mittagessen", diet: "Vegan", desc: "Bunte Bowl mit Quinoa, Süßkartoffel und Tahini.", drink: "Kombucha", drinkReason: "Leicht und gesund.", img: "Buddha bowl gourmet", recipe: "Alles anrichten, Dressing darüber." },
+        { name: "Lava Cake", category: "Dessert", diet: "Vegetarisch", desc: "Schokokuchen mit flüssigem Kern.", drink: "Espresso", drinkReason: "Bitter trifft Süß.", img: "Chocolate lava cake", recipe: "Kurz backen, warm servieren." },
+        { name: "Thai Curry", category: "Abendessen", diet: "Vegan", desc: "Würziges Kokoscurry mit Gemüse.", drink: "Ingwerbier", drinkReason: "Löscht die Schärfe.", img: "Thai green curry", recipe: "Paste anrösten, Kokosmilch dazu." },
+        { name: "Old Fashioned", category: "Nur Drinks", diet: "Alles", desc: "Whiskey, Bitter, Zucker.", drink: "-", drinkReason: "Pur genießen.", img: "Old Fashioned cocktail", recipe: "Rühren auf Eis." }
+    ];
+
     window.onload = () => {
-        if(apiKey) {
+        if(apiKey && apiKey.length > 5) {
             document.getElementById('step-setup').classList.remove('active');
             document.getElementById('step-category').classList.add('active');
         }
@@ -278,13 +288,12 @@
 
     window.saveKey = () => {
         const input = document.getElementById('apiKey').value.trim();
-        if(input.length > 10) {
-            localStorage.setItem(STORAGE_KEY, input);
-            apiKey = input;
-            location.reload();
-        } else {
-            alert("Bitte geben Sie einen gültigen Schlüssel ein.");
-        }
+        // Erlaubt auch leere Eingabe für Offline Modus
+        localStorage.setItem(STORAGE_KEY, input);
+        apiKey = input;
+        
+        document.getElementById('step-setup').classList.remove('active');
+        document.getElementById('step-category').classList.add('active');
     };
     
     window.resetKey = () => {
@@ -314,32 +323,53 @@
         userSelections.drinkPref = val;
     };
 
-    // --- DIE DIREKTE FETCH METHODE ---
-    async function callGeminiDirectly(prompt) {
-        // Wir nutzen das flash Modell, das ist schnell und kostenlos
+    // --- LOGIK: API Versuchen -> Falls Fehler -> Offline DB ---
+    async function fetchFromAPI(prompt) {
+        if(!apiKey || apiKey.length < 10) throw new Error("Kein Key");
+
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-        const requestBody = {
-            contents: [{
-                parts: [{ text: prompt }]
-            }]
-        };
-
         const response = await fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error.message || "API Error");
-        }
-
+        if (!response.ok) throw new Error("API Fehler");
         const data = await response.json();
-        return data.candidates[0].content.parts[0].text;
+        const text = data.candidates[0].content.parts[0].text.replace(/```json/g, '').replace(/```/g, '').trim();
+        return JSON.parse(text);
+    }
+
+    function fetchFromOfflineDB() {
+        console.log("Nutze Offline Datenbank...");
+        // 1. Filtern
+        let possible = offlineDatabase.filter(d => {
+            // Kategorie Match (grob)
+            const catMatch = d.category === userSelections.category || 
+                             (userSelections.category === "Brunch" && d.category === "Frühstück");
+            
+            // Diät Match
+            let dietMatch = true;
+            if (userSelections.diet === "Vegan" && d.diet !== "Vegan") dietMatch = false;
+            if (userSelections.diet === "Vegetarisch" && (d.diet === "Alles" || d.diet === "Pescetarisch")) dietMatch = false;
+            
+            return catMatch && dietMatch;
+        });
+
+        // Fallback wenn leer
+        if(possible.length === 0) possible = offlineDatabase;
+        
+        // Zufall
+        const item = possible[Math.floor(Math.random() * possible.length)];
+        
+        return {
+            dishName: item.name,
+            description: item.desc,
+            drinkName: item.drink,
+            drinkReason: item.drinkReason,
+            recipeShort: item.recipe,
+            imageSearchTerm: item.img
+        };
     }
 
     window.generateFood = async () => {
@@ -348,47 +378,37 @@
 
         window.nextStep('step-loading');
         
+        const prompt = `
+            Du bist ein Experte für Soulfood.
+            Schlage EIN Gericht vor.
+            Kontext: ${userSelections.category}, ${userSelections.people} Personen, Ernährung: ${userSelections.diet}, Allergien: ${userSelections.allergies}.
+            Getränkewunsch: ${userSelections.drinkPref}.
+            Antworte als JSON: { "dishName": "...", "description": "...", "drinkName": "...", "drinkReason": "...", "recipeShort": "...", "imageSearchTerm": "..." }
+        `;
+
+        let data;
         try {
-            const prompt = `
-                Du bist ein Experte für Soulfood und Comfort Food.
-                Schlage EIN Gericht vor, das glücklich macht, aber beschreibe es elegant und appetitlich.
-                Kontext: ${userSelections.category}, ${userSelections.people} Personen, Ernährung: ${userSelections.diet}, Allergien: ${userSelections.allergies}.
-                Getränkewunsch: ${userSelections.drinkPref}.
-                
-                Antworte NUR mit reinem JSON (kein Markdown 'json' davor), genau in diesem Format:
-                {
-                    "dishName": "Name (Deutsch)",
-                    "description": "Warum es gut tut (1 Satz, elegant formuliert).",
-                    "drinkName": "Passendes Getränk",
-                    "drinkReason": "Warum es passt (kurz)",
-                    "recipeShort": "Grobe Idee der Zubereitung (max 30 Wörter).",
-                    "imageSearchTerm": "English food term for high quality photography"
-                }
-            `;
-
-            // Direkter Aufruf ohne Library
-            const textRaw = await callGeminiDirectly(prompt);
-            
-            // JSON säubern
-            const textClean = textRaw.replace(/```json/g, '').replace(/```/g, '').trim(); 
-            const data = JSON.parse(textClean);
-
-            const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(data.imageSearchTerm + " elegant gourmet food photography dark rich colors cinematic lighting 8k michelin plating")}`;
-
-            document.getElementById('resTitle').innerText = data.dishName;
-            document.getElementById('resDesc').innerText = data.description;
-            document.getElementById('resImg').src = imgUrl;
-            document.getElementById('drinkName').innerText = data.drinkName;
-            document.getElementById('drinkReason').innerText = data.drinkReason;
-            document.getElementById('resRecipe').innerText = data.recipeShort;
-
-            window.nextStep('step-result');
-
-        } catch (error) {
-            console.error("API Fehler:", error);
-            alert("Es gab ein Problem: " + error.message + "\n\nStelle sicher, dass der Key gültig ist und nicht gelöscht wurde.");
-            window.nextStep('step-setup');
+            // Versuch 1: API
+            data = await fetchFromAPI(prompt);
+        } catch (e) {
+            // Versuch 2: Offline Fallback
+            console.log("Fallback Modus aktiv:", e);
+            // Kurze Wartezeit simulieren
+            await new Promise(r => setTimeout(r, 1000));
+            data = fetchFromOfflineDB();
         }
+
+        // Bild generieren (Geht immer, da externer Dienst)
+        const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(data.imageSearchTerm + " elegant gourmet food photography dark rich colors cinematic lighting 8k")}`;
+
+        document.getElementById('resTitle').innerText = data.dishName;
+        document.getElementById('resDesc').innerText = data.description;
+        document.getElementById('resImg').src = imgUrl;
+        document.getElementById('drinkName').innerText = data.drinkName;
+        document.getElementById('drinkReason').innerText = data.drinkReason;
+        document.getElementById('resRecipe').innerText = data.recipeShort;
+
+        window.nextStep('step-result');
     };
 </script>
 
