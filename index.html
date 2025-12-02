@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚜️Soulfood⚜️</title>
+    <title>Soulfood 🍲</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     
@@ -41,7 +41,7 @@
             width: 100%;
             max-width: 500px;
             margin-top: 10px;
-            margin-bottom: 60px; /* Platz für Ornamente */
+            margin-bottom: 60px;
             backdrop-filter: blur(5px);
             position: relative;
             z-index: 10;
@@ -120,7 +120,6 @@
         }
         .api-details input { font-size: 0.8rem; padding: 10px; margin-top: 10px; }
 
-        /* Ergebnis Styling */
         .result-img {
             width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover;
             border-radius: 12px; margin-bottom: 20px; background-color: #0c2461;
@@ -153,10 +152,6 @@
             border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 30px auto;
         }
         
-        .reset-link {
-            display: block; text-align: center; margin-top: 25px; color: rgba(255,255,255,0.3); font-size: 0.75rem; padding: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-        }
-
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -172,7 +167,7 @@
         <h1>Soulfood 🍲</h1>
         <div class="subtitle">Essen, das glücklich macht.</div>
         <p style="text-align:center; color:#E5E4E2; font-size: 0.95rem; line-height: 1.6;">
-            Willkommen in deiner Komfortzone.<br>Lass uns was Gutes finden.
+            Dein kulinarischer Kompass.<br>Vom Sofa direkt ins Glück.
         </p>
         <button class="btn" onclick="startApp()">Starten</button>
         <div class="api-details">
@@ -197,43 +192,59 @@
                 <span>🗺️</span>Essen gehen<br><small style="font-size:0.7rem">Restaurant</small>
             </div>
         </div>
-        <div style="height:20px;"></div> </div>
-
-    <div id="step-category" class="step">
-        <h2>Worauf hast du Lust?</h2>
-        <div class="options-grid" id="catGrid"></div>
-        <button class="btn" onclick="nextStep('step-people')">Weiter</button>
+        <div style="height:20px;"></div>
     </div>
 
-    <div id="step-people" class="step">
-        <h2>Die Details</h2>
-        <label>Anzahl Personen</label>
+    <div id="step-category" class="step">
+        <h2>Worauf habt ihr Lust?</h2>
+        <div class="options-grid" id="catGrid"></div>
+        <button class="btn" onclick="nextStep('step-count')">Weiter</button>
+    </div>
+
+    <div id="step-count" class="step">
+        <h2>Wie viele seid ihr?</h2>
         <input type="number" id="peopleCount" value="2" min="1" inputmode="numeric">
+        <button class="btn" onclick="startPlayerLoop()">Weiter zu den Wünschen</button>
+    </div>
+
+    <div id="step-individual" class="step">
+        <h2 id="personTitle">Person 1</h2>
+        <p style="text-align:center; font-size:0.8rem; margin-top:-10px;">Gib das Handy weiter!</p>
         
         <label>Ernährungsweise</label>
-        <div class="options-grid">
-            <div class="option-card selected" onclick="selectDiet(this, 'Alles')">Alles</div>
-            <div class="option-card" onclick="selectDiet(this, 'Vegetarisch')">Vegetarisch</div>
-            <div class="option-card" onclick="selectDiet(this, 'Vegan')">Vegan</div>
-            <div class="option-card" onclick="selectDiet(this, 'Pescetarisch')">Fisch</div>
+        <div class="options-grid" id="dietGrid">
+            <div class="option-card selected" onclick="selectIndividual('diet', 'Alles', this)">Alles</div>
+            <div class="option-card" onclick="selectIndividual('diet', 'Vegetarisch', this)">Vegetarisch</div>
+            <div class="option-card" onclick="selectIndividual('diet', 'Vegan', this)">Vegan</div>
+            <div class="option-card" onclick="selectIndividual('diet', 'Pescetarisch', this)">Fisch</div>
+        </div>
+
+        <label>Geschmack (Worauf hast DU Bock?)</label>
+        <div class="options-grid" id="tasteGrid">
+            <div class="option-card" onclick="selectIndividual('taste', 'Herzhaft', this)">Herzhaft</div>
+            <div class="option-card" onclick="selectIndividual('taste', 'Süß', this)">Süß</div>
+            <div class="option-card" onclick="selectIndividual('taste', 'Deftig', this)">Deftig</div>
+            <div class="option-card" onclick="selectIndividual('taste', 'Leicht', this)">Leicht</div>
+            <div class="option-card" onclick="selectIndividual('taste', 'Scharf', this)">Scharf</div>
+            <div class="option-card" onclick="selectIndividual('taste', 'Herb', this)">Herb</div>
         </div>
 
         <label>Getränke</label>
-        <div class="options-grid">
-            <div class="option-card selected" onclick="selectDrink(this, 'non-alcoholic')">Alkoholfrei</div>
-            <div class="option-card" onclick="selectDrink(this, 'alcoholic')">Mit Alkohol</div>
+        <div class="options-grid" id="drinkGrid">
+            <div class="option-card selected" onclick="selectIndividual('drink', 'non-alcoholic', this)">Alkoholfrei</div>
+            <div class="option-card" onclick="selectIndividual('drink', 'alcoholic', this)">Mit Alkohol</div>
         </div>
 
-        <label>Sonstiges</label>
-        <input type="text" id="allergies" placeholder="Allergien / No-Gos">
+        <label>Allergien / No-Gos</label>
+        <input type="text" id="individualAllergies" placeholder="z.B. Nüsse, Pilze...">
         
-        <button class="btn" onclick="generateFood()">Kuratieren</button>
+        <button class="btn" id="nextPersonBtn" onclick="nextPerson()">Nächste Person</button>
     </div>
 
     <div id="step-loading" class="step" style="text-align: center;">
         <h2 style="color:var(--gold); border:none; margin-top:40px;">Kuratierung...</h2>
         <div class="loader"></div>
-        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Wir suchen das perfekte Match.</p>
+        <p id="loadingText" style="color:var(--text-platinum); opacity:0.7; font-size:0.9rem;">Wir suchen den kleinsten gemeinsamen Nenner.</p>
     </div>
 
     <div id="step-result" class="step">
@@ -252,7 +263,6 @@
             <div class="recipe-box">
                 <h3 style="color:var(--gold); margin-top:0;">📝 Einkaufsliste</h3>
                 <ul id="ingredientList" class="ingredient-list"></ul>
-                
                 <h3 style="color:var(--gold); margin-top:20px;">🔥 Zubereitung</h3>
                 <p id="resSteps" style="white-space: pre-line; margin-bottom:0;"></p>
             </div>
@@ -266,13 +276,13 @@
             </div>
         </div>
 
-        <button class="btn btn-outline" onclick="location.reload()">Neue Inspiration</button>
+        <button class="btn btn-outline" onclick="location.reload()">Neue Runde</button>
     </div>
 
 </div>
 
 <script>
-    const STORAGE_KEY = "soulfood_ultra_v2";
+    const STORAGE_KEY = "soulfood_ultra_v3";
     let apiKey = localStorage.getItem(STORAGE_KEY) || "";
     
     function toggleApiInput() {
@@ -282,61 +292,49 @@
 
     if(apiKey) document.getElementById('apiKey').value = apiKey;
 
-    let userSelections = { mode: "cook", category: "", diet: "Alles", drinkPref: "non-alcoholic", people: 2, allergies: "" };
+    // STATE
+    let globalSettings = { mode: "cook", category: "", peopleCount: 1 };
+    let players = []; // Array speichert { diet: "", taste: "", drink: "", allergy: "" }
+    let currentPlayerIndex = 0;
+    let tempPlayerSelection = { diet: "Alles", taste: "", drink: "non-alcoholic" };
 
     const categories = ["Frühstück", "Brunch", "Mittagessen", "Abendessen", "Snacks", "Dessert", "Suppen", "Nur Drinks"];
 
-    // --- MASSIVE OFFLINE DATENBANK MIT ZUTATEN & REZEPTEN ---
+    // --- DATENBANK MIT GESCHMACKS-TAGS (taste) ---
     const offlineDatabase = [
         // FRÜHSTÜCK
-        { 
-            name: "Egg Benedict Royal", category: "Frühstück", diet: "Alles", 
-            desc: "Pochierte Eier auf Brioche mit Sauce Hollandaise.", 
-            drink: "Mimosa", drinkReason: "Klassiker.", img: "Eggs Benedict gourmet", 
-            ingredients: ["4 Eier", "2 Brioche Brötchen", "100g Butter", "2 Eigelb", "Zitrone", "Schnittlauch", "Schinken/Speck"],
-            steps: "1. Butter klären für Hollandaise.\n2. Eigelb mit Zitronensaft über Wasserbad aufschlagen, Butter langsam einrühren.\n3. Eier in Essigwasser pochieren (3-4 Min).\n4. Brioche toasten, Speck braten, alles schichten."
-        },
-        { 
-            name: "Avocado Toast Deluxe", category: "Frühstück", diet: "Vegan", 
-            desc: "Sauerteigbrot mit Avocado-Creme und Granatapfel.", 
-            drink: "Ingwer-Shot", drinkReason: "Belebend.", img: "Avocado toast pomegranate", 
-            ingredients: ["2 Scheiben Sauerteigbrot", "2 Reife Avocados", "1/2 Granatapfel", "Chiliflocken", "Limette", "Olivenöl"],
-            steps: "1. Brot knusprig rösten.\n2. Avocado mit Gabel zerdrücken, mit Limette, Salz, Pfeffer abschmecken.\n3. Auf Brot streichen.\n4. Mit Granatapfelkernen und Chili toppen."
-        },
-        { name: "Shakshuka", category: "Frühstück", diet: "Vegetarisch", desc: "Eier in pikanter Tomatensauce.", drink: "Minztee", drinkReason: "Frisch.", img: "Shakshuka pan", ingredients: ["4 Eier", "1 Dose Tomaten", "1 Paprika", "1 Zwiebel", "Kreuzkümmel", "Feta", "Brot"], steps: "1. Zwiebeln und Paprika andünsten.\n2. Tomaten und Gewürze dazu, 10 Min köcheln.\n3. Mulden formen, Eier hineinschlagen.\n4. Deckel drauf, stocken lassen (5 Min)." },
-        { name: "French Toast", category: "Frühstück", diet: "Vegetarisch", desc: "Brioche in Ei-Sahne-Mischung gebraten.", drink: "Cappuccino", drinkReason: "Cremig.", img: "French toast berries", ingredients: ["Brioche Scheiben", "2 Eier", "100ml Milch", "Zimt", "Butter", "Ahornsirup", "Beeren"], steps: "1. Eier, Milch, Zimt verquirlen.\n2. Brot kurz eintunken.\n3. In Butter goldbraun braten.\n4. Mit Sirup und Beeren servieren." },
-        { name: "Acai Bowl", category: "Frühstück", diet: "Vegan", desc: "Gefrorenes Beerenpüree mit Granola.", drink: "Kokoswasser", drinkReason: "Hydrierend.", img: "Acai bowl", ingredients: ["200g TK Beeren/Acai", "1 Banane", "50ml Mandelmilch", "Granola", "Kokosflocken", "Frische Früchte"], steps: "1. TK Früchte, halbe Banane und Milch mixen bis cremig.\n2. In Schüssel füllen.\n3. Kunstvoll mit Toppings belegen." },
+        { name: "Egg Benedict Royal", category: "Frühstück", taste: "Herzhaft", diet: "Alles", desc: "Pochierte Eier auf Brioche mit Sauce Hollandaise.", drink: "Mimosa", drinkReason: "Klassiker.", img: "Eggs Benedict gourmet", ingredients: ["Eier", "Brioche", "Butter", "Schinken"], steps: "1. Pochieren.\n2. Sauce rühren." },
+        { name: "Avocado Toast Deluxe", category: "Frühstück", taste: "Leicht", diet: "Vegan", desc: "Sauerteigbrot mit Avocado und Chili.", drink: "Ingwer-Shot", drinkReason: "Belebend.", img: "Avocado toast pomegranate", ingredients: ["Brot", "Avocado", "Chili", "Limette"], steps: "1. Rösten.\n2. Belegen." },
+        { name: "Pancakes mit Ahornsirup", category: "Frühstück", taste: "Süß", diet: "Vegetarisch", desc: "Fluffige Pfannkuchen.", drink: "Kakao", drinkReason: "Süß.", img: "Pancakes syrup", ingredients: ["Mehl", "Milch", "Ei", "Sirup"], steps: "1. Teig rühren.\n2. Backen." },
+        { name: "Full English Breakfast", category: "Frühstück", taste: "Deftig", diet: "Alles", desc: "Würstchen, Speck, Bohnen.", drink: "Earl Grey", drinkReason: "Britisch.", img: "Full english breakfast", ingredients: ["Würstchen", "Speck", "Bohnen", "Ei"], steps: "1. Alles braten." },
         
         // MITTAG
-        { name: "Trüffel-Pasta", category: "Mittagessen", diet: "Vegetarisch", desc: "Pasta mit Butter und schwarzem Trüffel.", drink: "Chardonnay", drinkReason: "Edel.", img: "Truffle pasta gourmet", ingredients: ["400g Tagliatelle", "100g Butter", "Parmesan", "Trüffel (frisch oder Öl/Paste)", "Salz"], steps: "1. Pasta al dente kochen, Wasser auffangen.\n2. Butter in Pfanne schmelzen, Pasta und etwas Nudelwasser dazu.\n3. Parmesan unterrühren bis cremig.\n4. Trüffel darüber geben." },
-        { name: "Buddha Bowl", category: "Mittagessen", diet: "Vegan", desc: "Quinoa, Süßkartoffel, Tahini.", drink: "Kombucha", drinkReason: "Gesund.", img: "Buddha bowl", ingredients: ["1 Tasse Quinoa", "1 Süßkartoffel", "1 Dose Kichererbsen", "Tahini", "Zitrone", "Spinat"], steps: "1. Quinoa kochen.\n2. Süßkartoffel würfeln und 20 Min backen.\n3. Dressing aus Tahini, Zitrone, Wasser mixen.\n4. Alles in einer Schüssel anrichten." },
-        { name: "Caesar Salad", category: "Mittagessen", diet: "Alles", desc: "Romana mit Parmesan und Hähnchen.", drink: "Eistee", drinkReason: "Kalt.", img: "Caesar salad chicken", ingredients: ["Romana Salat", "2 Hähnchenbrustfilets", "Parmesan", "Toastbrot (Croutons)", "Eigelb", "Senf", "Öl", "Sardellen (opt)"], steps: "1. Dressing aus Eigelb, Senf, Öl, Parmesan mixen.\n2. Hähnchen braten, Brot zu Croutons rösten.\n3. Salat mit Dressing vermengen, Toppings drauf." },
-        { name: "Falafel Wrap", category: "Mittagessen", diet: "Vegan", desc: "Falafel, Hummus, Salat im Brot.", drink: "Ayran", drinkReason: "Kühlend.", img: "Falafel wrap", ingredients: ["Tortilla Wraps", "Falafel (Fertig oder Mix)", "Hummus", "Tomaten", "Gurke", "Eisbergsalat"], steps: "1. Falafel braten/backen.\n2. Wraps erwärmen.\n3. Mit Hummus bestreichen.\n4. Gemüse und Falafel drauf, rollen." },
-        { name: "Club Sandwich", category: "Mittagessen", diet: "Alles", desc: "Huhn, Speck, Ei, Salat, Mayo.", drink: "Cola Zero", drinkReason: "Klassisch.", img: "Club sandwich", ingredients: ["9 Scheiben Toast", "Hähnchenbrust", "Bacon", "3 Eier", "Tomaten", "Salat", "Mayonnaise"], steps: "1. Toasten. Hähnchen und Bacon braten. Eier hart kochen.\n2. Erste Schicht: Salat, Huhn, Mayo.\n3. Zweite Schicht: Ei, Bacon, Tomate.\n4. Diagonal schneiden und spießen." },
+        { name: "Trüffel-Pasta", category: "Mittagessen", taste: "Herzhaft", diet: "Vegetarisch", desc: "Pasta mit Butter und schwarzem Trüffel.", drink: "Chardonnay", drinkReason: "Edel.", img: "Truffle pasta gourmet", ingredients: ["Pasta", "Butter", "Trüffel", "Parmesan"], steps: "1. Kochen.\n2. Schwenken." },
+        { name: "Buddha Bowl", category: "Mittagessen", taste: "Leicht", diet: "Vegan", desc: "Quinoa, Süßkartoffel, Tahini.", drink: "Kombucha", drinkReason: "Gesund.", img: "Buddha bowl", ingredients: ["Quinoa", "Süßkartoffel", "Kichererbsen"], steps: "1. Garen.\n2. Anrichten." },
+        { name: "Currywurst mit Pommes", category: "Mittagessen", taste: "Deftig", diet: "Alles", desc: "Der Klassiker.", drink: "Cola", drinkReason: "Kult.", img: "Currywurst fries", ingredients: ["Wurst", "Currysauce", "Pommes"], steps: "1. Braten.\n2. Frittieren." },
+        { name: "Linseneintopf", category: "Mittagessen", taste: "Deftig", diet: "Alles", desc: "Klassisch mit Würstchen.", drink: "Apfelschorle", drinkReason: "Bodenständig.", img: "Lentil soup", ingredients: ["Linsen", "Suppengrün", "Würstchen"], steps: "1. Kochen." },
 
         // ABEND
-        { name: "Rinderfilet", category: "Abendessen", diet: "Alles", desc: "Zartes Steak mit Rotweinjus.", drink: "Cabernet Sauvignon", drinkReason: "Kräftig.", img: "Filet Mignon steak", ingredients: ["2 Rinderfiletsteaks", "Rosmarin", "Knoblauch", "Butter", "200ml Rotwein", "Kartoffeln"], steps: "1. Steaks salzen, scharf anbraten (2 Min/Seite).\n2. Im Ofen bei 100°C gar ziehen (ca. 10-15 Min).\n3. Bratensatz mit Wein ablöschen, reduzieren, Butter einrühren." },
-        { name: "Lachs auf Zeder", category: "Abendessen", diet: "Pescetarisch", desc: "Rauchiger Lachs vom Grill.", drink: "Riesling", drinkReason: "Säurekick.", img: "Salmon cedar plank", ingredients: ["Lachsseite", "Zedernholzbrett", "Zitrone", "Dill", "Olivenöl", "Brauner Zucker"], steps: "1. Brett 1 Std wässern.\n2. Lachs mit Zucker, Salz, Zitrone würzen.\n3. Auf Brett legen, bei indirekter Hitze 20 Min grillen." },
-        { name: "Thai Green Curry", category: "Abendessen", diet: "Vegan", desc: "Scharfes Kokoscurry mit Gemüse.", drink: "Ingwerbier", drinkReason: "Löscht Brand.", img: "Thai green curry", ingredients: ["Grüne Currypaste", "1 Dose Kokosmilch", "Tofu", "Brokkoli", "Zuckerschoten", "Reis", "Limette"], steps: "1. Paste anbraten, mit Kokosmilch ablöschen.\n2. Gemüse und Tofu 10 Min köcheln.\n3. Mit Sojasauce/Limette abschmecken.\n4. Mit Reis servieren." },
-        { name: "Wiener Schnitzel", category: "Abendessen", diet: "Alles", desc: "Kalbsschnitzel, souffliert gebacken.", drink: "Grüner Veltliner", drinkReason: "Österreichisch.", img: "Wiener Schnitzel", ingredients: ["Kalbsschnitzel", "Mehl", "Ei", "Semmelbrösel", "Butterschmalz", "Preiselbeeren"], steps: "1. Fleisch sehr dünn klopfen.\n2. Mehlieren, durchs Ei ziehen, in Bröseln wenden (nicht andrücken!).\n3. In viel Schmalz schwimmend goldbraun backen." },
-        { name: "Melanzane Parmigiana", category: "Abendessen", diet: "Vegetarisch", desc: "Auberginen-Tomaten-Auflauf.", drink: "Chianti", drinkReason: "Italienisch.", img: "Eggplant parmigiana", ingredients: ["3 Auberginen", "2 Dosen Tomaten", "Mozzarella", "Parmesan", "Basilikum"], steps: "1. Auberginenscheiben anbraten/frittieren.\n2. Tomatensauce kochen.\n3. In Auflaufform schichten: Sauce, Aubergine, Käse.\n4. 30 Min bei 200°C backen." },
-        { name: "Tacos al Pastor", category: "Abendessen", diet: "Alles", desc: "Schwein, Ananas, Koriander.", drink: "Margarita", drinkReason: "Fiesta.", img: "Tacos al pastor", ingredients: ["Schweinenacken", "Ananas", "Maistortillas", "Zwiebel", "Koriander", "Chilipaste"], steps: "1. Fleisch marinieren und braten.\n2. Ananas anbraten.\n3. Tortillas erwärmen.\n4. Füllen und mit Zwiebel/Koriander toppen." },
-        { name: "Gnocchi Salbei", category: "Abendessen", diet: "Vegetarisch", desc: "Gnocchi in Salbeibutter.", drink: "Lugana", drinkReason: "Frisch.", img: "Gnocchi sage butter", ingredients: ["500g Gnocchi (frisch)", "100g Butter", "Frischer Salbei", "Parmesan"], steps: "1. Gnocchi kochen bis sie schwimmen.\n2. Butter bräunen, Salbei darin knusprig braten.\n3. Gnocchi in die Butter geben, schwenken, Parmesan drüber." },
-
-        // SNACKS
-        { name: "Nachos Supreme", category: "Snacks", diet: "Vegetarisch", desc: "Überbacken mit Käse, Jalapenos, Salsa.", drink: "Cerveza", drinkReason: "Passt.", img: "Nachos cheese supreme", ingredients: ["Tortilla Chips", "Cheddar (gerieben)", "Jalapenos", "Sauerrahm", "Salsa"], steps: "1. Chips auf Blech verteilen.\n2. Käse und Jalapenos drüber.\n3. 10 Min backen bis Käse schmilzt.\n4. Mit Dips servieren." },
-        { name: "Edamame", category: "Snacks", diet: "Vegan", desc: "Gedämpfte Sojabohnen mit Meersalz.", drink: "Sake", drinkReason: "Japanisch.", img: "Edamame beans", ingredients: ["TK Edamame", "Grobes Meersalz"], steps: "1. Bohnen 5 Min in Salzwasser kochen oder dämpfen.\n2. Abgießen.\n3. Großzügig salzen." },
-        { name: "Bruschetta", category: "Snacks", diet: "Vegan", desc: "Tomaten, Knoblauch, Basilikum auf Brot.", drink: "Aperol Spritz", drinkReason: "Aperitivo.", img: "Bruschetta pomodoro", ingredients: ["Ciabatta", "Tomaten", "Knoblauch", "Basilikum", "Olivenöl"], steps: "1. Tomaten würfeln, mit Öl/Basilikum mischen.\n2. Brot rösten, mit Knoblauch einreiben.\n3. Tomatenmix darauf verteilen." },
+        { name: "Rinderfilet", category: "Abendessen", taste: "Herzhaft", diet: "Alles", desc: "Zartes Steak mit Rotweinjus.", drink: "Rotwein", drinkReason: "Kräftig.", img: "Filet Mignon steak", ingredients: ["Filet", "Rotwein", "Kartoffeln"], steps: "1. Braten." },
+        { name: "Thai Green Curry", category: "Abendessen", taste: "Scharf", diet: "Vegan", desc: "Scharfes Kokoscurry.", drink: "Bier", drinkReason: "Löscht.", img: "Thai green curry", ingredients: ["Currypaste", "Kokosmilch", "Gemüse"], steps: "1. Kochen." },
+        { name: "Wiener Schnitzel", category: "Abendessen", taste: "Deftig", diet: "Alles", desc: "Kalbsschnitzel paniert.", drink: "Weißwein", drinkReason: "Klassik.", img: "Wiener Schnitzel", ingredients: ["Kalb", "Paniermehl", "Ei"], steps: "1. Panieren.\n2. Backen." },
+        { name: "Sommersalat mit Ziegenkäse", category: "Abendessen", taste: "Leicht", diet: "Vegetarisch", desc: "Frischer Salat mit Honig.", drink: "Rosé", drinkReason: "Sommerlich.", img: "Goat cheese salad", ingredients: ["Salat", "Ziegenkäse", "Honig"], steps: "1. Grillen.\n2. Mischen." },
+        { name: "Chili sin Carne", category: "Abendessen", taste: "Scharf", diet: "Vegan", desc: "Scharfer Bohneneintopf.", drink: "Corona", drinkReason: "Mildert.", img: "Chili sin carne", ingredients: ["Bohnen", "Tomaten", "Soja", "Chili"], steps: "1. Einkochen." },
         
+        // SNACKS
+        { name: "Nachos Supreme", category: "Snacks", taste: "Deftig", diet: "Vegetarisch", desc: "Käse, Jalapenos.", drink: "Bier", drinkReason: "Passt.", img: "Nachos cheese supreme", ingredients: ["Chips", "Käse", "Jalapenos"], steps: "1. Überbacken." },
+        { name: "Edamame", category: "Snacks", taste: "Leicht", diet: "Vegan", desc: "Sojabohnen mit Salz.", drink: "Sake", drinkReason: "Japanisch.", img: "Edamame beans", ingredients: ["Edamame", "Salz"], steps: "1. Dämpfen." },
+        { name: "Chicken Wings", category: "Snacks", taste: "Scharf", diet: "Alles", desc: "Hot BBQ Wings.", drink: "Pale Ale", drinkReason: "BBQ.", img: "Spicy chicken wings", ingredients: ["Wings", "Hot Sauce"], steps: "1. Backen." },
+
         // DESSERT
-        { name: "Lava Cake", category: "Dessert", diet: "Vegetarisch", desc: "Schokoküchlein mit flüssigem Kern.", drink: "Espresso", drinkReason: "Kontrast.", img: "Chocolate lava cake", ingredients: ["100g Zartbitterschoko", "100g Butter", "2 Eier", "2 Eigelb", "100g Zucker", "2 EL Mehl"], steps: "1. Schoko & Butter schmelzen.\n2. Eier & Zucker schaumig schlagen, Schoko unterheben, Mehl dazu.\n3. In Förmchen 10-12 Min bei 200°C backen (Kern muss weich bleiben)." },
-        { name: "Mango Sticky Rice", category: "Dessert", diet: "Vegan", desc: "Klebreis mit Kokosmilch und Mango.", drink: "Jasmintee", drinkReason: "Duftig.", img: "Mango sticky rice", ingredients: ["Klebreis (Sushi/Thai)", "Kokosmilch", "Zucker", "Salz", "Reife Mango"], steps: "1. Reis kochen/dämpfen.\n2. Kokosmilch mit Zucker & Salz aufkochen.\n3. Reis mit Sauce mischen, ziehen lassen.\n4. Mit Mango servieren." },
-        { name: "Tiramisu", category: "Dessert", diet: "Vegetarisch", desc: "Klassiker ohne Ei (einfacher).", drink: "Amaretto", drinkReason: "Mandel.", img: "Tiramisu gourmet", ingredients: ["Löffelbiskuits", "Mascarpone", "Sahne", "Starker Espresso", "Kakao", "Zucker"], steps: "1. Sahne steif schlagen, unter Mascarpone/Zucker heben.\n2. Biskuits kurz in Espresso tunken.\n3. Schichten: Biskuit, Creme, Biskuit, Creme.\n4. Kühlen, Kakao drüber." },
+        { name: "Lava Cake", category: "Dessert", taste: "Süß", diet: "Vegetarisch", desc: "Schokoküchlein.", drink: "Espresso", drinkReason: "Kontrast.", img: "Chocolate lava cake", ingredients: ["Schoko", "Ei", "Butter", "Zucker"], steps: "1. Backen." },
+        { name: "Zitronensorbet", category: "Dessert", taste: "Sauer", diet: "Vegan", desc: "Erfrischend.", drink: "Wodka", drinkReason: "Colonel.", img: "Lemon sorbet", ingredients: ["Zitrone", "Zucker", "Wasser"], steps: "1. Frieren." },
+        { name: "Kaiserschmarrn", category: "Dessert", taste: "Süß", diet: "Vegetarisch", desc: "Mit Rosinen.", drink: "Almdudler", drinkReason: "Alpen.", img: "Kaiserschmarrn", ingredients: ["Mehl", "Ei", "Milch", "Rosinen"], steps: "1. Pfanne." },
 
         // DRINKS
-        { name: "Old Fashioned", category: "Nur Drinks", diet: "Alles", desc: "Whiskey pur.", drink: "-", drinkReason: "Pur.", img: "Old Fashioned cocktail", ingredients: ["6cl Bourbon/Rye", "1 Würfelzucker", "Angostura Bitter", "Orangenzeste", "Eis"], steps: "1. Zucker mit Bitter im Glas tränken.\n2. Whiskey und Eis dazu.\n3. Kalt rühren (Stir).\n4. Zeste darüber ausdrücken." },
-        { name: "Virgin Mojito", category: "Nur Drinks", diet: "Vegan", desc: "Minze, Limette, Soda.", drink: "-", drinkReason: "Fresh.", img: "Virgin Mojito", ingredients: ["1 Limette", "2 TL Rohrzucker", "Frische Minze", "Crushed Ice", "Soda/Ginger Ale"], steps: "1. Limette achteln, mit Zucker ins Glas.\n2. Stößeln.\n3. Minze dazu (anklatschen).\n4. Eis und Soda auffüllen." },
-        { name: "Gin Tonic", category: "Nur Drinks", diet: "Vegan", desc: "Gin mit Tonic Water.", drink: "-", drinkReason: "Herb.", img: "Gin Tonic cucumber", ingredients: ["4cl Gin", "Tonic Water", "Eiswürfel", "Gurke oder Zitrone"], steps: "1. Glas mit Eis füllen.\n2. Gin darüber.\n3. Mit Tonic auffüllen.\n4. Garnieren." }
+        { name: "Gin Tonic", category: "Nur Drinks", taste: "Herb", diet: "Vegan", desc: "Klassiker.", drink: "-", drinkReason: "-", img: "Gin Tonic", ingredients: ["Gin", "Tonic", "Gurke"], steps: "1. Mischen." },
+        { name: "Mojito", category: "Nur Drinks", taste: "Süß", diet: "Vegan", desc: "Minze & Rum.", drink: "-", drinkReason: "-", img: "Mojito", ingredients: ["Rum", "Minze", "Zucker"], steps: "1. Mischen." },
+        { name: "Negroni", category: "Nur Drinks", taste: "Bitter", diet: "Vegan", desc: "Stark & Bitter.", drink: "-", drinkReason: "-", img: "Negroni", ingredients: ["Gin", "Wermut", "Campari"], steps: "1. Rühren." }
     ];
 
     window.onload = () => renderCategories();
@@ -350,7 +348,7 @@
             el.onclick = () => {
                 document.querySelectorAll('#catGrid .option-card').forEach(c => c.classList.remove('selected'));
                 el.classList.add('selected');
-                userSelections.category = cat;
+                globalSettings.category = cat;
             };
             grid.appendChild(el);
         });
@@ -367,35 +365,71 @@
     };
 
     window.selectMode = (mode, el) => {
-        userSelections.mode = mode;
+        globalSettings.mode = mode;
         document.querySelectorAll('#step-mode .option-card').forEach(c => c.classList.remove('selected'));
         el.classList.add('selected');
         setTimeout(() => nextStep('step-category'), 300);
     };
     
     window.nextStep = (id) => {
-        if(id === 'step-people' && !userSelections.category) {
-            alert("Bitte wählen Sie zuerst eine Kategorie.");
-            return;
+        if(id === 'step-count' && !globalSettings.category) {
+            alert("Bitte wähle eine Kategorie."); return;
         }
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         window.scrollTo(0,0);
     };
 
-    window.selectDiet = (el, val) => {
-        el.parentElement.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected');
-        userSelections.diet = val;
+    // --- PLAYER LOOP LOGIK ---
+    window.startPlayerLoop = () => {
+        globalSettings.peopleCount = parseInt(document.getElementById('peopleCount').value);
+        currentPlayerIndex = 1;
+        players = []; // Reset
+        showPlayerInput();
+        window.nextStep('step-individual');
     };
 
-    window.selectDrink = (el, val) => {
+    function showPlayerInput() {
+        document.getElementById('personTitle').innerText = `Person ${currentPlayerIndex} von ${globalSettings.peopleCount}`;
+        document.getElementById('nextPersonBtn').innerText = (currentPlayerIndex === globalSettings.peopleCount) ? "Fertig - Gericht finden!" : "Nächste Person";
+        
+        // Reset Inputs
+        document.getElementById('individualAllergies').value = "";
+        resetGrid('dietGrid');
+        resetGrid('tasteGrid');
+        resetGrid('drinkGrid');
+        
+        // Default Selection
+        selectIndividual('drink', 'non-alcoholic', document.querySelector('#drinkGrid .option-card'));
+        selectIndividual('diet', 'Alles', document.querySelector('#dietGrid .option-card'));
+        tempPlayerSelection = { diet: "Alles", taste: "", drink: "non-alcoholic", allergy: "" };
+    }
+
+    function resetGrid(id) {
+        document.querySelectorAll(`#${id} .option-card`).forEach(c => c.classList.remove('selected'));
+    }
+
+    window.selectIndividual = (type, val, el) => {
         el.parentElement.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
         el.classList.add('selected');
-        userSelections.drinkPref = val;
+        tempPlayerSelection[type] = val;
     };
 
-    // --- LOGIK ---
+    window.nextPerson = () => {
+        // Speichere aktuellen Spieler
+        tempPlayerSelection.allergy = document.getElementById('individualAllergies').value;
+        players.push({...tempPlayerSelection}); // Copy object
+
+        if (currentPlayerIndex < globalSettings.peopleCount) {
+            currentPlayerIndex++;
+            showPlayerInput();
+            window.scrollTo(0,0);
+        } else {
+            generateFood();
+        }
+    };
+
+    // --- KI & LOGIK ---
     async function fetchFromAPI(prompt) {
         if(!apiKey || apiKey.length < 10) throw new Error("No Key");
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
@@ -411,47 +445,78 @@
     }
 
     function fetchFromOfflineDB() {
+        // CONSENSUS LOGIK
+        let finalDiet = "Alles";
+        if (players.some(p => p.diet === "Vegan")) finalDiet = "Vegan";
+        else if (players.some(p => p.diet === "Vegetarisch")) finalDiet = "Vegetarisch";
+        else if (players.some(p => p.diet === "Pescetarisch")) finalDiet = "Pescetarisch";
+
+        // Sammle alle Geschmäcker
+        let wantedTastes = players.map(p => p.taste).filter(t => t !== "");
+
         let possible = offlineDatabase.filter(d => {
-            const catMatch = d.category === userSelections.category || (userSelections.category === "Brunch" && d.category === "Frühstück");
+            const catMatch = d.category === globalSettings.category || (globalSettings.category === "Brunch" && d.category === "Frühstück");
+            
+            // Diet Check (Strict)
             let dietMatch = true;
-            if (userSelections.diet === "Vegan" && d.diet !== "Vegan") dietMatch = false;
-            if (userSelections.diet === "Vegetarisch" && (d.diet === "Alles" || d.diet === "Pescetarisch")) dietMatch = false;
+            if (finalDiet === "Vegan" && d.diet !== "Vegan") dietMatch = false;
+            if (finalDiet === "Vegetarisch" && (d.diet === "Alles" || d.diet === "Pescetarisch")) dietMatch = false;
+            if (finalDiet === "Pescetarisch" && d.diet === "Alles") dietMatch = false;
+
+            // Taste Check (Soft - einer muss passen)
+            let tasteMatch = true;
+            if (wantedTastes.length > 0) {
+                // Wenn wir Wünsche haben, muss das Gericht einen davon erfüllen ODER neutral sein
+                // Hier: Einfache Logik -> Wenn Taste angegeben, muss es passen, sonst alles
+                if (!wantedTastes.includes(d.taste) && wantedTastes.length > 0) {
+                    // Wir geben Punkten, wenn es passt. Hier simpler Filter:
+                    // Wenn keiner der Wünsche passt, fliegt es raus? Zu streng.
+                    // Wir lassen es drin, sortieren aber später vielleicht.
+                    // Für MVP: Wir filtern nicht hart nach Taste im Offline Mode, 
+                    // da die DB zu klein ist für "Vegan + Scharf + Süß".
+                }
+            }
+
             return catMatch && dietMatch;
         });
-        if(possible.length === 0) possible = offlineDatabase; 
+
+        if(possible.length === 0) {
+            // Fallback: Nur Kategorie filtern, Diet ignorieren (Notfall)
+            possible = offlineDatabase.filter(d => d.category === globalSettings.category);
+        }
         
         const item = possible[Math.floor(Math.random() * possible.length)];
+        
         return {
             dishName: item.name,
             description: item.desc,
             drinkName: item.drink,
             drinkReason: item.drinkReason,
-            recipeShort: item.recipe, // Fallback Text
-            ingredients: item.ingredients || ["Zutaten nicht verfügbar"],
-            steps: item.steps || "Zubereitungsschritte folgen.",
+            recipeShort: "Zubereitung siehe unten.",
+            ingredients: item.ingredients || ["Zutaten laden..."],
+            steps: item.steps || "Schritte laden...",
             imageSearchTerm: item.img
         };
     }
 
     window.generateFood = async () => {
-        userSelections.people = parseInt(document.getElementById('peopleCount').value);
-        userSelections.allergies = document.getElementById('allergies').value;
         window.nextStep('step-loading');
         
-        // Prompt fordert jetzt auch Zutaten und Schritte an
+        // Prompt bauen aus allen Spielern
+        let playerDesc = players.map((p, i) => `Person ${i+1}: ${p.diet}, mag ${p.taste}, trinkt ${p.drink}, Allergie: ${p.allergy}`).join(". ");
+
         const prompt = `
-            Du bist ein Experte für Soulfood. Schlage EIN Gericht vor.
-            Kontext: ${userSelections.category}, ${userSelections.people} Personen, Ernährung: ${userSelections.diet}, Allergien: ${userSelections.allergies}.
-            Getränkewunsch: ${userSelections.drinkPref}.
+            Finde ein gemeinsames Gericht für diese Gruppe. Kategorie: ${globalSettings.category}.
+            Profile: ${playerDesc}.
+            Das Gericht muss den strengsten Ernährungsstil erfüllen (Vegan > Veggie > Alles).
             Antworte als JSON: 
             { 
                 "dishName": "...", 
                 "description": "...", 
                 "drinkName": "...", 
                 "drinkReason": "...", 
-                "recipeShort": "...", 
-                "ingredients": ["Zutat 1", "Zutat 2", ...],
-                "steps": "Schritt 1... Schritt 2...",
+                "ingredients": ["Zutat 1", "Zutat 2"],
+                "steps": "1... 2...",
                 "imageSearchTerm": "..." 
             }
         `;
@@ -466,7 +531,6 @@
 
         const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(data.imageSearchTerm + " elegant gourmet food photography dark rich colors cinematic lighting 8k")}`;
 
-        // Basic Info
         document.getElementById('resTitle').innerText = data.dishName;
         document.getElementById('resDesc').innerText = data.description;
         document.getElementById('resImg').src = imgUrl;
@@ -480,10 +544,8 @@
         actionBtns.style.display = 'none';
         cookingDet.style.display = 'none';
 
-        if (userSelections.mode === 'cook') {
+        if (globalSettings.mode === 'cook') {
             cookingDet.style.display = 'block';
-            
-            // Zutatenliste rendern
             const ingList = document.getElementById('ingredientList');
             ingList.innerHTML = '';
             if(data.ingredients) {
@@ -500,7 +562,7 @@
             const mapBtn = document.getElementById('mapBtn');
             const delBtn = document.getElementById('deliveryBtn');
             
-            if (userSelections.mode === 'out') {
+            if (globalSettings.mode === 'out') {
                 mapBtn.style.display = 'block';
                 delBtn.style.display = 'none';
                 mapBtn.onclick = () => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.dishName + " Restaurant")}`);
